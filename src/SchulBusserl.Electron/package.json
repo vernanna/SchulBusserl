@@ -1,0 +1,30 @@
+{
+  "name": "SchulBusserl",
+  "version": "0.0.0",
+  "main": "main.js",
+  "build": {
+    "appId": "schulbusserl",
+    "directories": {
+      "buildResources": "build",
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "frontend/**/*",
+      "backend/**/*"
+    ],
+    "asar": false,
+    "win": {
+      "target": "nsis",
+      "executableName": "SchulBusserl",
+      "requestedExecutionLevel": "asInvoker"
+    }
+  },
+  "scripts": {
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron-builder": "^26.0.12",
+    "electron": "^39.2.4"
+  }
+}

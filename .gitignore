@@ -352,3 +352,8 @@ MigrationBackup/
 .idea/
 test-results/
 artifacts/
+src/SchulBusserl.ClientApp/dist
+src/SchulBusserl.ClientApp/node_modules
+src/SchulBusserl.ClientApp/.angular
+src/SchulBusserl.Electron/node_modules
+src/SchulBusserl.Electron/release
