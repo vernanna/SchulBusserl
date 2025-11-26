@@ -1,0 +1,58 @@
+name: Build Windows App
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build frontend
+        working-directory: ./src/SchulBusserl.ClientApp
+        run: |
+          npm install
+          npm run build
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Publish backend
+        working-directory: .
+        run: |
+          dotnet restore
+          dotnet publish ./src/SchulBusserl/SchulBusserl.csproj -c Release -r win-x64 --self-contained true -o ./publish/backend
+
+      - name: Copy frontend into publish folder
+        run: |
+          mkdir ".\publish\frontend"
+          xcopy /E /I /Y ".\src\SchulBusserl.ClientApp\dist\SchulBusserl\*" ".\publish\frontend\"
+          
+      - name: Copy Electron files into publish folder
+        run: |
+          xcopy /E /I /Y ".\src\SchulBusserl.Electron\*" ".\publish\"
+
+      - name: Build Electron
+        working-directory: ./publish
+        env:
+          PUBLISH_FOR_PULL_REQUEST: true
+        run: |
+          npm install
+          npx electron-builder --win nsis --publish always
+
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-artifact
+          path: ./publish/release/*Setup*.exe

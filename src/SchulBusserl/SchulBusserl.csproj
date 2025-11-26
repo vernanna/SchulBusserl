@@ -11,14 +11,13 @@
         <PackageReference Include="Destructurama.Attributed" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
         <PackageReference Include="Microsoft.AspNetCore.SpaProxy" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\SchulBusserl.Application\SchulBusserl.Application.csproj" />
-      <ProjectReference Include="..\..\SchulBusserl.Domain\SchulBusserl.Domain.csproj" />
+      <ProjectReference Include="..\SchulBusserl.Application\SchulBusserl.Application.csproj" />
+      <ProjectReference Include="..\SchulBusserl.Domain\SchulBusserl.Domain.csproj" />
       <ProjectReference Include="..\SchulBusserl.Api\SchulBusserl.Api.csproj" />
       <ProjectReference Include="..\SchulBusserl.Application.Contract\SchulBusserl.Application.Contract.csproj" />
       <ProjectReference Include="..\SchulBusserl.Application.Interfaces\SchulBusserl.Application.Interfaces.csproj" />

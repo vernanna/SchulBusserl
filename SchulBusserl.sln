@@ -10,6 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 		README.md = README.md
 		Directory.Packages.props = Directory.Packages.props
+		.github\workflows\build-windows.yml = .github\workflows\build-windows.yml
+		.github\workflows\build-backend.yml = .github\workflows\build-backend.yml
+		.github\workflows\build-frontend.yml = .github\workflows\build-frontend.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchulBusserl.Api", "src\SchulBusserl.Api\SchulBusserl.Api.csproj", "{96126D75-6D46-4193-BF75-539E5DF4C456}"

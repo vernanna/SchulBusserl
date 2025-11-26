@@ -15,7 +15,7 @@ export class App {
   constructor(private readonly http: HttpClient) {}
   
   test() {
-    this.http.get('https://localhost:7243/api/application-info', { responseType: 'text' })
+    this.http.get('http://localhost:5000/api/application-info', { responseType: 'text' })
       .subscribe(r => this.result = r);
   }
 }

@@ -50,7 +50,7 @@ public class Startup
             .AddNewtonsoftJson(options => options.SerializerSettings.Configure());
 
         // In production, the Angular files will be served from this directory
-        services.AddSpaStaticFiles(config => config.RootPath = "ClientApp/dist/browser");
+        services.AddSpaStaticFiles(config => config.RootPath = "../frontend/browser");
 
         // Disable built-in model validation
         services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
@@ -79,7 +79,10 @@ public class Startup
             app.UseHsts();
         }
 
-        app.UseHttpsRedirection();
+        if (!env.IsDevelopment())
+        {
+            app.UseHttpsRedirection();
+        }
 
         app.UseStaticFiles();
         app.UseSpaStaticFiles();
