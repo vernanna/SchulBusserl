@@ -1,5 +1,6 @@
 import { HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpRequest } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
+import ApplicationError from './application-error';
 import { ApplicationError as DomainApplicationError } from '../../entities/application-error';
 import ApplicationError from './application-error';
 
