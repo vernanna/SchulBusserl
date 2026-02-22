@@ -9,7 +9,7 @@ export class AccountingPeriodRepository {
   private readonly apiService = inject(ApiService);
 
   getAccountingPeriods(): Observable<AccountingPeriod[]> {
-    return of([{ name: 'Schuljahr 2026' }, { name: 'Schuljahr 2027' }]);
+    return of([{ id: '1', name: 'Schuljahr 2026' }, { id: '2', name: 'Schuljahr 2027' }]);
 
     // todo vk: use real value as soon as backend is available
     return this.apiService.get<ApiAccountingPeriod[]>('accounting-periods');
