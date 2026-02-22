@@ -208,7 +208,7 @@ ij_typescript_force_semicolon_style=false
 ij_typescript_function_expression_brace_style=end_of_line
 ij_typescript_if_brace_force=never
 ij_typescript_import_merge_members=global
-ij_typescript_import_prefer_absolute_path=true
+ij_typescript_import_prefer_absolute_path=false
 ij_typescript_import_sort_members=true
 ij_typescript_import_sort_module_name=false
 ij_typescript_import_use_node_resolution=true
@@ -600,6 +600,8 @@ ij_json_wrap_long_lines=false
 
 [{*.htm,*.html,*.ng,*.sht,*.shtm,*.shtml}]
 max_line_length=240
+indent_size=2
+tab_width=2
 ij_continuation_indent_size=2
 ij_html_add_new_line_before_tags=body,div,p,form,h1,h2,h3
 ij_html_align_attributes=true
@@ -611,7 +613,7 @@ ij_html_do_not_break_if_inline_tags=title,h1,h2,h3,h4,h5,h6,p
 ij_html_do_not_indent_children_of_tags=html,body,thead,tbody,tfoot
 ij_html_enforce_quotes=false
 ij_html_inline_tags=a,abbr,acronym,b,basefont,bdo,big,br,cite,cite,code,dfn,em,font,i,img,input,kbd,label,q,s,samp,select,small,span,strike,strong,sub,sup,textarea,tt,u,var
-ij_html_keep_blank_lines=2
+ij_html_keep_blank_lines=1
 ij_html_keep_indents_on_empty_lines=false
 ij_html_keep_line_breaks=true
 ij_html_keep_line_breaks_in_text=true
