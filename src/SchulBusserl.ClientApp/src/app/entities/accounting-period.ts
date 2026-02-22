@@ -1,3 +1,3 @@
-﻿export default interface AccountingPeriod {
+export default interface AccountingPeriod {
   name: string;
 }

@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,html,scss}": "dprint fmt"
+  },
+  "devDependencies": {
+    "dprint": "^0.51.1"
+  }
+}

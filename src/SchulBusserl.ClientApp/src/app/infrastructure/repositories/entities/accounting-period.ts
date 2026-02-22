@@ -1,4 +1,4 @@
-﻿import DomainAccountingPeriod from '../../../entities/accounting-period';
+import DomainAccountingPeriod from '../../../entities/accounting-period';
 
 export interface AccountingPeriod {
   name: string;
@@ -7,5 +7,5 @@ export interface AccountingPeriod {
 export function accountingPeriodToDomainModel(accountingPeriod: AccountingPeriod): DomainAccountingPeriod {
   return {
     name: accountingPeriod.name,
-  }
+  };
 }

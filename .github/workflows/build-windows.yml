@@ -2,7 +2,7 @@ name: Build Windows App
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build-windows:
@@ -38,7 +38,7 @@ jobs:
         run: |
           mkdir ".\publish\frontend"
           xcopy /E /I /Y ".\src\SchulBusserl.ClientApp\dist\SchulBusserl\*" ".\publish\frontend\"
-          
+
       - name: Copy Electron files into publish folder
         run: |
           xcopy /E /I /Y ".\src\SchulBusserl.Electron\*" ".\publish\"

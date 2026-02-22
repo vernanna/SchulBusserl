@@ -1,4 +1,4 @@
-﻿import AccountingPeriod from '../entities/accounting-period';
+import AccountingPeriod from '../entities/accounting-period';
 import { Loadable, Loadables } from '../entities/loadable';
 
 export type AppState = {

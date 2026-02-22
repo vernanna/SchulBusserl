@@ -6,7 +6,7 @@ import { AppStore } from './state/app.store';
   selector: 'app-root',
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class App implements OnInit {
   protected readonly appStore = inject(AppStore);

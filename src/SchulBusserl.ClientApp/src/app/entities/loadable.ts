@@ -1,9 +1,9 @@
-﻿import { ApplicationError } from './application-error';
+import { ApplicationError } from './application-error';
 
 export interface Loadable<T> {
-  value: T,
-  isLoading: boolean,
-  error: ApplicationError | null,
+  value: T;
+  isLoading: boolean;
+  error: ApplicationError | null;
 }
 
 export class Loadables {

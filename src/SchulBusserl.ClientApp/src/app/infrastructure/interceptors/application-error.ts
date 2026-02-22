@@ -1,3 +1,3 @@
-﻿export default interface ApplicationError {
+export default interface ApplicationError {
   message: string;
 }
