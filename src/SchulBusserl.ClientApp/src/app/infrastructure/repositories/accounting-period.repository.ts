@@ -1,7 +1,5 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { AccountingPeriod as ApiAccountingPeriod } from './entities/accounting-period';
-import { ApiService } from '../api.service';
 import AccountingPeriod from '../../entities/accounting-period';
 import { ApiService } from '../api.service';
 import { AccountingPeriod as ApiAccountingPeriod } from './entities/accounting-period';
