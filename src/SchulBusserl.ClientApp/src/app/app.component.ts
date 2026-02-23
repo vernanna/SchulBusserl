@@ -1,23 +1,32 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AppStore } from './state/app.store';
 import { MatFormField, MatLabel } from '@angular/material/input';
 import { MatOption, MatSelect, MatSelectChange } from '@angular/material/select';
 import { HideSubscriptWrapperDirective } from './shared/directives/hide-subscript-wrapper.directive';
-import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import AccountingPeriod from './entities/accounting-period';
+import { ContainerDirective } from './shared/containers/container.directive';
+import { CreateAccountingPeriodDialogComponent } from './dialogs/create-accounting-period-dialog/create-accounting-period.dialog';
+import Dialog from './shared/dialogs/dialog';
+import { CreateAccountingPeriodDialogContext } from './dialogs/create-accounting-period-dialog/create-accounting-period-dialog.store';
+import DialogEvents from './shared/dialogs/dialog-events';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, MatFormField, MatLabel, MatSelect, MatOption, HideSubscriptWrapperDirective, MatButton, MatIcon],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class App implements OnInit {
+export class App extends ContainerDirective implements OnInit {
   protected readonly appStore = inject(AppStore);
+  protected readonly createAccountingPeriodDialog: Dialog<CreateAccountingPeriodDialogContext, DialogEvents>;
 
-  protected readonly title = signal('SchulBusserl');
+  constructor() {
+    super();
+    this.createAccountingPeriodDialog = this.registerDialog(CreateAccountingPeriodDialogComponent);
+  }
 
   ngOnInit(): void {
     this.appStore.getAccountingPeriods();
@@ -25,5 +34,9 @@ export class App implements OnInit {
 
   protected onAccountingPeriodSelected($event: MatSelectChange<string>) {
     this.appStore.selectAccountingPeriodRequested($event.value);
+  }
+
+  protected onCreateAccountingPeriodClick() {
+    this.createAccountingPeriodDialog.open({});
   }
 }

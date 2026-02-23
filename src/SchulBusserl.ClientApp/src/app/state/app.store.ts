@@ -6,7 +6,6 @@ import { Loadables } from '../entities/loadable';
 import { AccountingPeriodRepository } from '../infrastructure/repositories/accounting-period.repository';
 import { AppState, initialAppState } from './app.state';
 import { catchApplicationError } from '../shared/utils/rx.operators';
-import AccountingPeriod from '../entities/accounting-period';
 
 export const AppStore = signalStore(
   { providedIn: 'root' },
@@ -20,7 +19,7 @@ export const AppStore = signalStore(
             accountingPeriodRepository.getAccountingPeriods().pipe(
               tap(accountingPeriods => patchState(store, { accountingPeriods: Loadables.success(accountingPeriods), selectedAccountingPeriod: accountingPeriods[0] ?? null })),
               catchApplicationError(error => patchState(store, { accountingPeriods: Loadables.error(error) })),
-            )
+            ),
           ),
         ),
       ),

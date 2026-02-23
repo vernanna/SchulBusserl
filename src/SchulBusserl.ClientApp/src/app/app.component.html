@@ -34,7 +34,7 @@
             <mat-option [value]="accountingPeriod.id">{{accountingPeriod.name}}</mat-option>
           }
           <div class="w-100 d-flex justify-content-center">
-            <button matButton>
+            <button matButton (click)="onCreateAccountingPeriodClick()">
               <mat-icon>add</mat-icon>
               Hinzufügen
             </button>
