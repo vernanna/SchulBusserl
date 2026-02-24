@@ -1,7 +1,6 @@
 ﻿import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { CreateAccountingPeriodDialogContext, CreateAccountingPeriodDialogStore } from './create-accounting-period-dialog.store';
-import DialogEvents from '../../shared/dialogs/dialog-events';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormDialogDirective } from '../../shared/dialogs/form-dialog.directive';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
@@ -21,10 +20,7 @@ import { SaveDialogActionsComponent } from '../../shared/dialogs/actions/save-di
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateAccountingPeriodDialogComponent extends FormDialogDirective<CreateAccountingPeriodDialogContext, DialogEvents> {
-  public static readonly dialogStore = CreateAccountingPeriodDialogStore;
-  public static readonly dialogEvents = DialogEvents;
-
+export class CreateAccountingPeriodDialogComponent extends FormDialogDirective<CreateAccountingPeriodDialogContext, InstanceType<typeof CreateAccountingPeriodDialogStore>> {
   protected readonly form;
 
   constructor() {

@@ -8,8 +8,8 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ContainerDirective } from './shared/containers/container.directive';
 import { CreateAccountingPeriodDialogComponent } from './dialogs/create-accounting-period-dialog/create-accounting-period.dialog';
-import Dialog from './shared/dialogs/dialog';
-import { CreateAccountingPeriodDialogContext } from './dialogs/create-accounting-period-dialog/create-accounting-period-dialog.store';
+import { DialogFor } from './shared/dialogs/dialog';
+import { CreateAccountingPeriodDialogStore } from './dialogs/create-accounting-period-dialog/create-accounting-period-dialog.store';
 import DialogEvents from './shared/dialogs/dialog-events';
 
 @Component({
@@ -21,11 +21,11 @@ import DialogEvents from './shared/dialogs/dialog-events';
 })
 export class App extends ContainerDirective implements OnInit {
   protected readonly appStore = inject(AppStore);
-  protected readonly createAccountingPeriodDialog: Dialog<CreateAccountingPeriodDialogContext, DialogEvents>;
+  protected readonly createAccountingPeriodDialog: DialogFor<CreateAccountingPeriodDialogComponent>;
 
   constructor() {
     super();
-    this.createAccountingPeriodDialog = this.registerDialog(CreateAccountingPeriodDialogComponent);
+    this.createAccountingPeriodDialog = this.registerDialog(CreateAccountingPeriodDialogComponent, CreateAccountingPeriodDialogStore, DialogEvents);
   }
 
   ngOnInit(): void {
@@ -37,6 +37,6 @@ export class App extends ContainerDirective implements OnInit {
   }
 
   protected onCreateAccountingPeriodClick() {
-    this.createAccountingPeriodDialog.open({});
+    this.createAccountingPeriodDialog.open({ text: 'my test' });
   }
 }

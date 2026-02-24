@@ -1,15 +1,12 @@
 ﻿import { Directive, inject } from '@angular/core';
-import { DIALOG_STORE, DialogStore } from './dialog.store';
+import { DIALOG_STORE, DialogStoreLike } from './dialog.store';
 import DialogEvents, { DIALOG_EVENTS } from './dialog-events';
 
 @Directive()
-export abstract class DialogDirective<TContext, TEvents extends DialogEvents = DialogEvents> {
-  protected readonly dialogStore = inject(DIALOG_STORE) as DialogStore<TContext>;
+export abstract class DialogDirective<TContext, TStore extends DialogStoreLike<TContext>, TEvents extends DialogEvents = DialogEvents> {
+  protected readonly dialogStore = inject(DIALOG_STORE) as TStore;
   protected readonly events = inject(DIALOG_EVENTS) as TEvents;
-
-  protected get context(): TContext {
-    return this.dialogStore.context();
-  }
+  protected readonly context = this.dialogStore.context;
 
   protected onCloseClicked(): void {
     this.events.closeClicked.next();

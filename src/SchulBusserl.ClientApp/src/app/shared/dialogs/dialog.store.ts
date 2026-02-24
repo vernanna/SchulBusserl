@@ -1,6 +1,6 @@
-import { EmptyFeatureResult, patchState, SignalStoreFeature, signalStoreFeature, StateSource, withMethods, withState } from '@ngrx/signals';
+import { EmptyFeatureResult, patchState, SignalStoreFeature, signalStoreFeature, withMethods, withState } from '@ngrx/signals';
 import { DialogState, initialDialogState } from './dialog.state';
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, Signal } from '@angular/core';
 
 export type DialogStoreFeatureResult<TContext> = {
   state: DialogState<TContext>;
@@ -11,9 +11,9 @@ export type DialogStoreFeatureResult<TContext> = {
   };
 };
 
-export type DialogStore<TContext> = StateSource<DialogState<TContext>> & {
-  isOpen(): boolean;
-  context(): TContext;
+export type DialogStoreLike<TContext = unknown> = {
+  isOpen: Signal<boolean>;
+  context: Signal<TContext>;
   open(context: TContext): void;
   close(): void;
 };

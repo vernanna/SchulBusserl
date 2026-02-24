@@ -1,4 +1,4 @@
-﻿import { DIALOG_STORE, DialogStore } from './dialog.store';
+import { DIALOG_STORE, DialogStoreLike } from './dialog.store';
 import { createEnvironmentInjector, DestroyRef, effect, EnvironmentInjector, inject, Type, untracked } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
@@ -6,7 +6,7 @@ import { DialogDirective } from './dialog.directive';
 import DialogEvents, { DIALOG_EVENTS } from './dialog-events';
 import { Subject, takeUntil } from 'rxjs';
 
-export default class Dialog<TContext, TEvents extends DialogEvents> {
+export default class Dialog<TContext, TStore extends DialogStoreLike<TContext>, TEvents extends DialogEvents> {
   private readonly dialog = inject(MatDialog);
   private readonly envInjector = inject(EnvironmentInjector);
   private readonly destroyRef = inject(DestroyRef);
@@ -15,8 +15,12 @@ export default class Dialog<TContext, TEvents extends DialogEvents> {
 
   public readonly events: TEvents;
 
-  constructor(private readonly dialogStore: DialogStore<TContext>, component: ComponentType<DialogDirective<TContext>> & { dialogStore: Type<DialogStore<TContext>>; dialogEvents: Type<TEvents>; }) {
-    this.events = new component.dialogEvents();
+  constructor(
+    private readonly dialogStore: TStore,
+    component: ComponentType<DialogDirective<TContext, TStore, TEvents>>,
+    dialogEventsType: Type<TEvents>,
+  ) {
+    this.events = new dialogEventsType();
 
     const effectRef = effect(() => {
       const isOpen = dialogStore.isOpen();
@@ -65,3 +69,7 @@ export default class Dialog<TContext, TEvents extends DialogEvents> {
     this.dialogRef?.close();
   }
 }
+
+export type DialogFor<TComponent> = TComponent extends DialogDirective<infer TContext, infer TStore, infer TEvents>
+    ? Dialog<TContext, TStore, TEvents>
+    : never;
