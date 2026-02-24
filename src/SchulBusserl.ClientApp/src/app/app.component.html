@@ -33,7 +33,7 @@
           @for (accountingPeriod of appStore.accountingPeriods.value(); track accountingPeriod) {
             <mat-option [value]="accountingPeriod.id">{{accountingPeriod.name}}</mat-option>
           }
-          <div class="w-100 d-flex justify-content-center">
+          <div class="w-100 d-flex justify-content-center pt-2">
             <button matButton (click)="onCreateAccountingPeriodClick()">
               <mat-icon>add</mat-icon>
               Hinzufügen

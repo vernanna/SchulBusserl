@@ -8,9 +8,10 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ContainerDirective } from './shared/containers/container.directive';
 import { CreateAccountingPeriodDialogComponent } from './dialogs/create-accounting-period-dialog/create-accounting-period.dialog';
-import { DialogFor } from './shared/dialogs/dialog';
-import { CreateAccountingPeriodDialogStore } from './dialogs/create-accounting-period-dialog/create-accounting-period-dialog.store';
-import DialogEvents from './shared/dialogs/dialog-events';
+import { CreateAccountingPeriodDialogFormValue, CreateAccountingPeriodDialogStore } from './dialogs/create-accounting-period-dialog/create-accounting-period-dialog.store';
+import { FormDialogFor } from './shared/dialogs/form-dialog';
+import FormDialogEvents from './shared/dialogs/form-dialog-events';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-root',
@@ -21,11 +22,15 @@ import DialogEvents from './shared/dialogs/dialog-events';
 })
 export class App extends ContainerDirective implements OnInit {
   protected readonly appStore = inject(AppStore);
-  protected readonly createAccountingPeriodDialog: DialogFor<CreateAccountingPeriodDialogComponent>;
+  protected readonly createAccountingPeriodDialog: FormDialogFor<CreateAccountingPeriodDialogComponent>;
 
   constructor() {
     super();
-    this.createAccountingPeriodDialog = this.registerDialog(CreateAccountingPeriodDialogComponent, CreateAccountingPeriodDialogStore, DialogEvents);
+    this.createAccountingPeriodDialog = this.registerFormDialog(CreateAccountingPeriodDialogComponent, CreateAccountingPeriodDialogStore, FormDialogEvents<CreateAccountingPeriodDialogFormValue>, submission => this.appStore.createAccountingPeriod(submission));
+
+    this.createAccountingPeriodDialog.events.submitRequested
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(value => console.log('Success ' + value.name));
   }
 
   ngOnInit(): void {
@@ -37,6 +42,6 @@ export class App extends ContainerDirective implements OnInit {
   }
 
   protected onCreateAccountingPeriodClick() {
-    this.createAccountingPeriodDialog.open({ text: 'my test' });
+    this.createAccountingPeriodDialog.open({ text: 'my test' }, { name: 'Schuljahr X' });
   }
 }

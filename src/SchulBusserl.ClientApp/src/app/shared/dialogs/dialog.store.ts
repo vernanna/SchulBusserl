@@ -1,6 +1,8 @@
 import { EmptyFeatureResult, patchState, SignalStoreFeature, signalStoreFeature, withMethods, withState } from '@ngrx/signals';
 import { DialogState, initialDialogState } from './dialog.state';
 import { InjectionToken, Signal } from '@angular/core';
+import { ApplicationError } from '../../entities/application-error';
+import { F } from '@angular/cdk/keycodes';
 
 export type DialogStoreFeatureResult<TContext> = {
   state: DialogState<TContext>;
@@ -26,10 +28,7 @@ export function withDialog<TContext = {}>(): SignalStoreFeature<EmptyFeatureResu
         patchState(store, { isOpen: true, context } as Partial<DialogState<TContext>>);
       },
       close(): void {
-        patchState(store, {
-          isOpen: false,
-          context: initialDialogState<TContext>().context,
-        } as Partial<DialogState<TContext>>);
+        patchState(store, initialDialogState<TContext>());
       },
     })),
   );

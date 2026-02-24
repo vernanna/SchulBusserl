@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import AccountingPeriod from '../../entities/accounting-period';
 import { ApiService } from '../api.service';
 import { AccountingPeriod as ApiAccountingPeriod } from './entities/accounting-period';
+import NewAccountingPeriod from '../../entities/new-accounting-period';
 
 @Injectable({ providedIn: 'root' })
 export class AccountingPeriodRepository {
@@ -13,5 +14,12 @@ export class AccountingPeriodRepository {
 
     // todo vk: use real value as soon as backend is available
     return this.apiService.get<ApiAccountingPeriod[]>('accounting-periods');
+  }
+
+  create(accountingPeriod: NewAccountingPeriod): Observable<AccountingPeriod> {
+    return of({ id: '3', name: accountingPeriod.name });
+
+    // todo vk: use real value as soon as backend is available
+    return this.apiService.post<ApiAccountingPeriod, NewAccountingPeriod>('accounting-periods', accountingPeriod);
   }
 }

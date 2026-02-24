@@ -1,12 +1,14 @@
-import { DIALOG_STORE, DialogStoreLike } from './dialog.store';
+import { DIALOG_STORE } from './dialog.store';
 import { createEnvironmentInjector, DestroyRef, effect, EnvironmentInjector, inject, Type, untracked } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
-import { DialogDirective } from './dialog.directive';
-import DialogEvents, { DIALOG_EVENTS } from './dialog-events';
+import { DIALOG_EVENTS } from './dialog-events';
 import { Subject, takeUntil } from 'rxjs';
+import { FormDialogDirective } from './form-dialog.directive';
+import FormDialogEvents from './form-dialog-events';
+import { FormDialogStoreLike } from './form-dialog.store';
 
-export default class Dialog<TContext, TStore extends DialogStoreLike<TContext>, TEvents extends DialogEvents> {
+export default class FormDialog<TContext, TValue, TStore extends FormDialogStoreLike<TContext, TValue>, TEvents extends FormDialogEvents<TValue>> {
   private readonly dialog = inject(MatDialog);
   private readonly envInjector = inject(EnvironmentInjector);
   private readonly destroyRef = inject(DestroyRef);
@@ -15,11 +17,7 @@ export default class Dialog<TContext, TStore extends DialogStoreLike<TContext>, 
 
   public readonly events: TEvents;
 
-  constructor(
-    private readonly dialogStore: TStore,
-    component: ComponentType<DialogDirective<TContext, TStore, TEvents>>,
-    dialogEventsType: Type<TEvents>,
-  ) {
+  constructor(private readonly dialogStore: TStore, component: ComponentType<FormDialogDirective<TContext, TValue, TStore, TEvents>>, dialogEventsType: Type<TEvents>) {
     this.events = new dialogEventsType();
 
     const effectRef = effect(() => {
@@ -61,8 +59,8 @@ export default class Dialog<TContext, TStore extends DialogStoreLike<TContext>, 
     });
   }
 
-  public open(context: TContext): void {
-    this.dialogStore.open(context);
+  public open(context: TContext, value?: TValue): void {
+    this.dialogStore.open(context, value);
   }
 
   public close(): void {
@@ -70,6 +68,11 @@ export default class Dialog<TContext, TStore extends DialogStoreLike<TContext>, 
   }
 }
 
-export type DialogFor<TComponent> = TComponent extends DialogDirective<infer TContext, infer TStore, infer TEvents>
-    ? Dialog<TContext, TStore, TEvents>
+export type ContextOf<T> = T extends FormDialogDirective<infer TContext, any, any, any> ? TContext : never;
+export type ValueOf<T> = T extends FormDialogDirective<any, infer TValue, any, any> ? TValue : never;
+export type StoreOf<T> = T extends FormDialogDirective<any, any, infer TStore, any> ? TStore : never;
+export type EventsOf<T> = T extends FormDialogDirective<any, any, any, infer TEvents> ? TEvents : never;
+
+export type FormDialogFor<TComponent> = TComponent extends FormDialogDirective<any, any, any, any>
+    ? FormDialog<ContextOf<TComponent>, ValueOf<TComponent>, StoreOf<TComponent>, EventsOf<TComponent>>
     : never;

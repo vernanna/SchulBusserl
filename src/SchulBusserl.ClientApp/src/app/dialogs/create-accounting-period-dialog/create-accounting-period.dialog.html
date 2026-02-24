@@ -5,4 +5,4 @@
     <input matInput [formControl]="form.controls.name">
   </mat-form-field>
 </mat-dialog-content>
-<app-save-dialog-actions (cancelClicked)="onCloseClicked()" />
+<app-save-dialog-actions (saveClicked)="onSubmitRequested()" (cancelClicked)="oncloseRequested()" />

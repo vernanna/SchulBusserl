@@ -8,5 +8,5 @@ export interface AppState {
 
 export const initialAppState: AppState = {
   selectedAccountingPeriod: null,
-  accountingPeriods: Loadables.initial(),
+  accountingPeriods: Loadables.initial([]),
 };

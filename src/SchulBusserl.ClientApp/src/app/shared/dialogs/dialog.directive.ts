@@ -8,7 +8,7 @@ export abstract class DialogDirective<TContext, TStore extends DialogStoreLike<T
   protected readonly events = inject(DIALOG_EVENTS) as TEvents;
   protected readonly context = this.dialogStore.context;
 
-  protected onCloseClicked(): void {
-    this.events.closeClicked.next();
+  protected oncloseRequested(): void {
+    this.events.closeRequested.next();
   }
 }

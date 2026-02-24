@@ -1,11 +1,15 @@
 ﻿import { signalStore } from '@ngrx/signals';
-import { withDialog } from '../../shared/dialogs/dialog.store';
+import { withFormDialog } from '../../shared/dialogs/form-dialog.store';
 
 export interface CreateAccountingPeriodDialogContext {
   text: string;
 }
 
+export interface CreateAccountingPeriodDialogFormValue {
+  name: string;
+}
+
 export const CreateAccountingPeriodDialogStore = signalStore(
   { providedIn: 'root' },
-  withDialog<CreateAccountingPeriodDialogContext>(),
+  withFormDialog<CreateAccountingPeriodDialogContext, CreateAccountingPeriodDialogFormValue>(),
 );
