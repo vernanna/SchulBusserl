@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, output, Signal } from '@angular/core';
 import { MatDialogActions } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
 

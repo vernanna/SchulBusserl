@@ -42,6 +42,6 @@ export class App extends ContainerDirective implements OnInit {
   }
 
   protected onCreateAccountingPeriodClick() {
-    this.createAccountingPeriodDialog.open({ text: 'my test' }, { name: 'Schuljahr X' });
+    this.createAccountingPeriodDialog.open({});
   }
 }
