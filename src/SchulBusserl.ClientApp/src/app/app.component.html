@@ -47,17 +47,6 @@
 </nav>
 
 <main class="main">
-  @let accountingPeriods = appStore.accountingPeriods;
-  @let error = accountingPeriods.error();
-  @let value = accountingPeriods.value();
-
-  @if (accountingPeriods.isLoading()) {
-    Loading...
-  } @else if (error) {
-    {{ error.message }}
-  } @else if (accountingPeriods.value()) {
-    Loaded!: {{ value.length }}
-  }
 </main>
 
 <router-outlet />
