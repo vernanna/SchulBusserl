@@ -17,7 +17,8 @@
     "win": {
       "target": "nsis",
       "executableName": "SchulBusserl",
-      "requestedExecutionLevel": "asInvoker"
+      "requestedExecutionLevel": "asInvoker",
+      "icon": "assets/icon.ico"
     }
   },
   "scripts": {
