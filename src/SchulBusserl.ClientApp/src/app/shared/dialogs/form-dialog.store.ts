@@ -18,7 +18,6 @@ export type FormDialogStoreFeatureResult<TContext, TValue> = Omit<DialogStoreFea
 export type FormDialogStoreLike<TContext = unknown, TValue = unknown> = Omit<DialogStoreLike<TContext>, 'open'> & {
   initialValue: Signal<Partial<TValue>>;
   open(context: TContext, value?: Partial<TValue>): void;
-  // todo vk: implement
   submit(): void;
   succeeded(stayOpen?: boolean): void;
   failed(error: ApplicationError): void;

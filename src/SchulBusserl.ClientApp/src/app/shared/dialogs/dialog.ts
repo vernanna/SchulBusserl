@@ -71,5 +71,5 @@ export default class Dialog<TContext, TStore extends DialogStoreLike<TContext>, 
 }
 
 export type DialogFor<TComponent> = TComponent extends DialogDirective<infer TContext, infer TStore, infer TEvents>
-    ? Dialog<TContext, TStore, TEvents>
-    : never;
+  ? Dialog<TContext, TStore, TEvents>
+  : never;

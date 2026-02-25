@@ -68,11 +68,16 @@ export default class FormDialog<TContext, TValue, TStore extends FormDialogStore
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ContextOf<T> = T extends FormDialogDirective<infer TContext, any, any, any> ? TContext : never;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ValueOf<T> = T extends FormDialogDirective<any, infer TValue, any, any> ? TValue : never;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type StoreOf<T> = T extends FormDialogDirective<any, any, infer TStore, any> ? TStore : never;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type EventsOf<T> = T extends FormDialogDirective<any, any, any, infer TEvents> ? TEvents : never;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type FormDialogFor<TComponent> = TComponent extends FormDialogDirective<any, any, any, any>
-    ? FormDialog<ContextOf<TComponent>, ValueOf<TComponent>, StoreOf<TComponent>, EventsOf<TComponent>>
-    : never;
+  ? FormDialog<ContextOf<TComponent>, ValueOf<TComponent>, StoreOf<TComponent>, EventsOf<TComponent>>
+  : never;
