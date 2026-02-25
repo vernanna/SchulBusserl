@@ -28,8 +28,7 @@ export function withDialog<TContext = {}>(): SignalStoreFeature<EmptyFeatureResu
       close(): void {
         patchState(store, initialDialogState<TContext>());
       },
-    })),
-  );
+    })));
 }
 
 export const DIALOG_STORE = new InjectionToken<unknown>('DIALOG_STORE');

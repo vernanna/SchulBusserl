@@ -4,6 +4,7 @@ import AccountingPeriod from '../../entities/accounting-period';
 import { ApiService } from '../api.service';
 import { AccountingPeriod as ApiAccountingPeriod } from './entities/accounting-period';
 import NewAccountingPeriod from '../../entities/new-accounting-period';
+import UpdatedAccountingPeriod from '../../entities/updated-accounting-period';
 
 @Injectable({ providedIn: 'root' })
 export class AccountingPeriodRepository {
@@ -20,6 +21,13 @@ export class AccountingPeriodRepository {
     return of({ id: '3', name: accountingPeriod.name });
 
     // todo vk: use real value as soon as backend is available
-    return this.apiService.post<ApiAccountingPeriod, NewAccountingPeriod>('accounting-periods', accountingPeriod);
+    return this.apiService.post<ApiAccountingPeriod>('accounting-periods', accountingPeriod);
+  }
+
+  update(accountingPeriod: UpdatedAccountingPeriod): Observable<AccountingPeriod> {
+    return of({ id: accountingPeriod.id, name: accountingPeriod.name });
+
+    // todo vk: use real value as soon as backend is available
+    return this.apiService.patch<ApiAccountingPeriod>('accounting-periods', accountingPeriod);
   }
 }

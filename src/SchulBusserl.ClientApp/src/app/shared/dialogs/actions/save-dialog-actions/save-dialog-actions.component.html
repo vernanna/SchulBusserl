@@ -1,4 +1,11 @@
-<mat-dialog-actions>
-  <button matButton (click)="cancelClicked.emit()">Abbrechen</button>
-  <button mat-flat-button (click)="saveClicked.emit()">Speichern</button>
-</mat-dialog-actions>
+<div class="save-dialog-actions">
+  @if (error(); as error) {
+    <div class="d-flex justify-content-end pe-4">
+      <mat-error>{{ error.message }}</mat-error>
+    </div>
+  }
+  <mat-dialog-actions class="save-dialog-actions__actions" [ngClass]="{'pt-0': error() != null}">
+    <button matButton (click)="cancelClicked.emit()">Abbrechen</button>
+    <button mat-flat-button [disabled]="!canSave()" (click)="saveClicked.emit()">Speichern</button>
+  </mat-dialog-actions>
+</div>

@@ -1,35 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <img src="assets/icon.ico" alt="SchulBusserl" width="30" height="30" class="mx-3">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
-        </li>
-      </ul>
-      <mat-form-field appearance="outline" hideSubscriptWrapper>
-        <mat-label>Zeitraum</mat-label>
-        <mat-select [value]="appStore.selectedAccountingPeriod()?.id" (selectionChange)="onAccountingPeriodSelected($event)">
-          @for (accountingPeriod of appStore.accountingPeriods.value(); track accountingPeriod) {
-            <mat-option [value]="accountingPeriod.id">{{accountingPeriod.name}}</mat-option>
-          }
-          <div class="w-100 d-flex justify-content-center pt-2">
-            <button matButton (click)="onCreateAccountingPeriodClick()">
-              <mat-icon>add</mat-icon>
-              Hinzufügen
-            </button>
-          </div>
-        </mat-select>
-      </mat-form-field>
-
-    </div>
-  </div>
-</nav>
+<app-header
+  [selectedAccountingPeriod]="appStore.selectedAccountingPeriod()"
+  [accountingPeriods]="appStore.accountingPeriods.value()"
+  (selectAccountingPeriodClick)="onAccountingPeriodSelected($event)"
+  (createAccountingPeriodClick)="onCreateAccountingPeriodClick()"
+  (updateAccountingPeriodClick)="onUpdateAccountingPeriodClick($event)"/>
 
 <main class="main">
 </main>
 
-<router-outlet />
+<router-outlet/>

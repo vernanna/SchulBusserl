@@ -9,6 +9,7 @@ import FormDialogEvents from '../dialogs/form-dialog-events';
 import FormDialog, { ContextOf, EventsOf, StoreOf, ValueOf } from '../dialogs/form-dialog';
 import FormDialogSubmission from '../dialogs/dialog-submission';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormDialogStoreLike } from '../dialogs/form-dialog.store';
 
 @Directive()
 export abstract class ContainerDirective {
@@ -27,14 +28,14 @@ export abstract class ContainerDirective {
     component: ComponentType<TComponent>,
     dialogStoreType: Type<StoreOf<TComponent>>,
     dialogEventsType: Type<EventsOf<TComponent>> = FormDialogEvents<ValueOf<TComponent>> as unknown as Type<EventsOf<TComponent>>,
-    onSubmit: (data: FormDialogSubmission<ValueOf<TComponent>>) => void,
+    onSubmit: (data: FormDialogSubmission<ContextOf<TComponent>, ValueOf<TComponent>>) => void,
   ): FormDialog<ContextOf<TComponent>, ValueOf<TComponent>, StoreOf<TComponent>, EventsOf<TComponent>> {
     const dialogStore = inject(dialogStoreType);
     const dialog = new FormDialog<ContextOf<TComponent>, ValueOf<TComponent>, StoreOf<TComponent>, EventsOf<TComponent>>(dialogStore, component, dialogEventsType);
 
     (dialog.events as FormDialogEvents<ValueOf<TComponent>>).submitRequested
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(value => onSubmit(new FormDialogSubmission(value, dialogStore)));
+      .subscribe(value => onSubmit(new FormDialogSubmission(dialog.context(), value, dialogStore)));
 
     return dialog;
   }

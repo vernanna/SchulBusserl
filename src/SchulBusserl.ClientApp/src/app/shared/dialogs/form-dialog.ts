@@ -1,5 +1,5 @@
-import { DIALOG_STORE } from './dialog.store';
-import { createEnvironmentInjector, DestroyRef, effect, EnvironmentInjector, inject, Type, untracked } from '@angular/core';
+import { DIALOG_STORE, DialogStoreLike } from './dialog.store';
+import { createEnvironmentInjector, DestroyRef, effect, EnvironmentInjector, inject, Signal, Type, untracked } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
 import { DIALOG_EVENTS } from './dialog-events';
@@ -16,9 +16,11 @@ export default class FormDialog<TContext, TValue, TStore extends FormDialogStore
   private dialogRef: MatDialogRef<unknown> | null = null;
 
   public readonly events: TEvents;
+  public readonly context: Signal<TContext>;
 
   constructor(private readonly dialogStore: TStore, component: ComponentType<FormDialogDirective<TContext, TValue, TStore, TEvents>>, dialogEventsType: Type<TEvents>) {
     this.events = new dialogEventsType();
+    this.context = dialogStore.context;
 
     const effectRef = effect(() => {
       const isOpen = dialogStore.isOpen();
@@ -73,7 +75,7 @@ export type ContextOf<T> = T extends FormDialogDirective<infer TContext, any, an
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ValueOf<T> = T extends FormDialogDirective<any, infer TValue, any, any> ? TValue : never;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type StoreOf<T> = T extends FormDialogDirective<any, any, infer TStore, any> ? TStore : never;
+export type StoreOf<T> = T extends FormDialogDirective<any, any, infer TStore extends FormDialogStoreLike<ContextOf<T>, ValueOf<T>>, any> ? TStore : never;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type EventsOf<T> = T extends FormDialogDirective<any, any, any, infer TEvents> ? TEvents : never;
 

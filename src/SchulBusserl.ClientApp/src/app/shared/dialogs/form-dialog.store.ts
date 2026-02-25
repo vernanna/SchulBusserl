@@ -17,6 +17,8 @@ export type FormDialogStoreFeatureResult<TContext, TValue> = Omit<DialogStoreFea
 
 export type FormDialogStoreLike<TContext = unknown, TValue = unknown> = Omit<DialogStoreLike<TContext>, 'open'> & {
   initialValue: Signal<Partial<TValue>>;
+  isSubmitting: Signal<boolean>;
+  error: Signal<ApplicationError | null>;
   open(context: TContext, value?: Partial<TValue>): void;
   submit(): void;
   succeeded(stayOpen?: boolean): void;
@@ -44,6 +46,5 @@ export function withFormDialog<TContext, TValue>(): SignalStoreFeature<EmptyFeat
       close(): void {
         patchState(store, initialState);
       },
-    })),
-  );
+    })));
 }
