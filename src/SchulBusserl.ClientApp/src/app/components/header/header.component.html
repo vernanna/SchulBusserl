@@ -15,6 +15,9 @@
         <mat-form-field appearance="outline" hideSubscriptWrapper>
           <mat-label>Zeitraum</mat-label>
           <mat-select panelClass="header__period-panel" [value]="selectedAccountingPeriod()?.id" [hideSingleSelectionIndicator]="true" [panelWidth]="null" (selectionChange)="selectAccountingPeriodClick.emit($event.value)">
+            <mat-select-trigger>
+              {{ selectedAccountingPeriod()?.name ?? '' }}
+            </mat-select-trigger>
             @for (accountingPeriod of accountingPeriods(); track accountingPeriod) {
               <mat-option [value]="accountingPeriod.id">
                 <div class="header__accounting-period-option d-flex justify-content-between align-items-center">
@@ -23,7 +26,7 @@
                     <button matIconButton (click)="updateAccountingPeriodClick.emit(accountingPeriod)">
                       <mat-icon>edit</mat-icon>
                     </button>
-                    <button matIconButton>
+                    <button matIconButton (click)="deleteAccountingPeriodClick.emit(accountingPeriod)">
                       <mat-icon>delete</mat-icon>
                     </button>
                   </div>

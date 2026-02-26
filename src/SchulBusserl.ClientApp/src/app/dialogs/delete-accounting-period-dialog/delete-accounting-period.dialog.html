@@ -1,0 +1,5 @@
+<h2 mat-dialog-title>Zeitraum löschen</h2>
+<mat-dialog-content>
+  Möchten Sie den Zeitraum {{ context().accountingPeriod.name }} wirklich löschen?
+</mat-dialog-content>
+<app-save-dialog-actions [canSave]="canSubmit" [error]="submissionError()" (saveClicked)="onSubmitRequested()" (cancelClicked)="oncloseRequested()" />

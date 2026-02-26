@@ -6,10 +6,13 @@ import Dialog from '../dialogs/dialog';
 import DialogEvents from '../dialogs/dialog-events';
 import { FormDialogDirective } from '../dialogs/form-dialog.directive';
 import FormDialogEvents from '../dialogs/form-dialog-events';
-import FormDialog, { ContextOf, EventsOf, StoreOf, ValueOf } from '../dialogs/form-dialog';
-import FormDialogSubmission from '../dialogs/dialog-submission';
+import FormDialog, { FormContextOf, FormEventsOf, FormStoreOf, ValueOf } from '../dialogs/form-dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormDialogStoreLike } from '../dialogs/form-dialog.store';
+import { ConfirmationDialogDirective } from '../dialogs/confirmation/confirmation-dialog.directive';
+import ConfirmationDialog, { ConfirmationContextOf, ConfirmationEventsOf, ConfirmationStoreOf } from '../dialogs/confirmation/confirmation-dialog';
+import ConfirmationDialogEvents from '../dialogs/confirmation/confirmation-dialog-events';
+import FormDialogSubmission from '../dialogs/form-dialog-submission';
+import ConfirmationDialogSubmission from '../dialogs/confirmation/confirmation-dialog-submission';
 
 @Directive()
 export abstract class ContainerDirective {
@@ -24,14 +27,44 @@ export abstract class ContainerDirective {
     return new Dialog(dialogStore, component, dialogEventsType);
   }
 
-  protected registerFormDialog<TComponent extends FormDialogDirective<ContextOf<TComponent>, ValueOf<TComponent>, StoreOf<TComponent>, EventsOf<TComponent>>>(
+  protected registerConfirmationDialog<TComponent extends ConfirmationDialogDirective<ConfirmationContextOf<TComponent>, ConfirmationStoreOf<TComponent>, ConfirmationEventsOf<TComponent>>>(
     component: ComponentType<TComponent>,
-    dialogStoreType: Type<StoreOf<TComponent>>,
-    dialogEventsType: Type<EventsOf<TComponent>> = FormDialogEvents<ValueOf<TComponent>> as unknown as Type<EventsOf<TComponent>>,
-    onSubmit: (data: FormDialogSubmission<ContextOf<TComponent>, ValueOf<TComponent>>) => void,
-  ): FormDialog<ContextOf<TComponent>, ValueOf<TComponent>, StoreOf<TComponent>, EventsOf<TComponent>> {
+    dialogStoreType: Type<ConfirmationStoreOf<TComponent>>,
+    onSubmit: (submission: ConfirmationDialogSubmission<ConfirmationContextOf<TComponent>>) => void,
+  ): ConfirmationDialog<ConfirmationContextOf<TComponent>, ConfirmationStoreOf<TComponent>, ConfirmationEventsOf<TComponent>> {
     const dialogStore = inject(dialogStoreType);
-    const dialog = new FormDialog<ContextOf<TComponent>, ValueOf<TComponent>, StoreOf<TComponent>, EventsOf<TComponent>>(dialogStore, component, dialogEventsType);
+    const dialog = new ConfirmationDialog<ConfirmationContextOf<TComponent>, ConfirmationStoreOf<TComponent>, ConfirmationEventsOf<TComponent>>(dialogStore, component);
+
+    (dialog.events as ConfirmationDialogEvents).submitRequested
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => onSubmit(new ConfirmationDialogSubmission(dialog.context(), dialogStore)));
+
+    return dialog;
+  }
+
+  protected registerFormDialog<TComponent extends FormDialogDirective<FormContextOf<TComponent>, ValueOf<TComponent>, FormStoreOf<TComponent>, FormEventsOf<TComponent>>>(
+    component: ComponentType<TComponent>,
+    dialogStoreType: Type<FormStoreOf<TComponent>>,
+    onSubmit: (data: FormDialogSubmission<FormContextOf<TComponent>, ValueOf<TComponent>>) => void,
+  ): FormDialog<FormContextOf<TComponent>, ValueOf<TComponent>, FormStoreOf<TComponent>, FormEventsOf<TComponent>> {
+    const dialogStore = inject(dialogStoreType);
+    const dialog = new FormDialog<FormContextOf<TComponent>, ValueOf<TComponent>, FormStoreOf<TComponent>, FormEventsOf<TComponent>>(dialogStore, component);
+
+    (dialog.events as FormDialogEvents<ValueOf<TComponent>>).submitRequested
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(value => onSubmit(new FormDialogSubmission(dialog.context(), value, dialogStore)));
+
+    return dialog;
+  }
+
+  protected registerFormDialogWithEvents<TComponent extends FormDialogDirective<FormContextOf<TComponent>, ValueOf<TComponent>, FormStoreOf<TComponent>, FormEventsOf<TComponent>>>(
+    component: ComponentType<TComponent>,
+    dialogStoreType: Type<FormStoreOf<TComponent>>,
+    dialogEventsType: Type<FormEventsOf<TComponent>> = FormDialogEvents<ValueOf<TComponent>> as unknown as Type<FormEventsOf<TComponent>>,
+    onSubmit: (data: FormDialogSubmission<FormContextOf<TComponent>, ValueOf<TComponent>>) => void,
+  ): FormDialog<FormContextOf<TComponent>, ValueOf<TComponent>, FormStoreOf<TComponent>, FormEventsOf<TComponent>> {
+    const dialogStore = inject(dialogStoreType);
+    const dialog = new FormDialog<FormContextOf<TComponent>, ValueOf<TComponent>, FormStoreOf<TComponent>, FormEventsOf<TComponent>>(dialogStore, component, dialogEventsType);
 
     (dialog.events as FormDialogEvents<ValueOf<TComponent>>).submitRequested
       .pipe(takeUntilDestroyed(this.destroyRef))

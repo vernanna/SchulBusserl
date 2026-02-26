@@ -5,10 +5,11 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint && npx stylelint **/*.scss",
-    "lint-fix": "ng lint --fix && npx stylelint **/*.scss --fix"
+    "lint:local": "npm run build:prod && ng lint --fix && npx stylelint **/*.scss --fix && rmdir /s /q dist"
   },
   "private": true,
   "dependencies": {

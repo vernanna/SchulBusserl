@@ -5,6 +5,7 @@ import { ApiService } from '../api.service';
 import { AccountingPeriod as ApiAccountingPeriod } from './entities/accounting-period';
 import NewAccountingPeriod from '../../entities/new-accounting-period';
 import UpdatedAccountingPeriod from '../../entities/updated-accounting-period';
+import { resourceWithUrlParameters } from '../../shared/utils/string-utils';
 
 @Injectable({ providedIn: 'root' })
 export class AccountingPeriodRepository {
@@ -29,5 +30,12 @@ export class AccountingPeriodRepository {
 
     // todo vk: use real value as soon as backend is available
     return this.apiService.patch<ApiAccountingPeriod>('accounting-periods', accountingPeriod);
+  }
+
+  delete(id: string): Observable<void> {
+    return of(undefined);
+
+    // todo vk: use real value as soon as backend is available
+    return this.apiService.delete(resourceWithUrlParameters('accounting-periods', { id }));
   }
 }

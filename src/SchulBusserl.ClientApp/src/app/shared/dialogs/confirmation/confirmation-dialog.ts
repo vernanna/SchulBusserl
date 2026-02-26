@@ -1,14 +1,14 @@
-import { DIALOG_STORE } from './dialog.store';
 import { createEnvironmentInjector, DestroyRef, effect, EnvironmentInjector, inject, Signal, Type, untracked } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
-import { DIALOG_EVENTS } from './dialog-events';
 import { Subject, takeUntil } from 'rxjs';
-import { FormDialogDirective } from './form-dialog.directive';
-import FormDialogEvents from './form-dialog-events';
-import { FormDialogStoreLike } from './form-dialog.store';
+import { ConfirmationDialogDirective } from './confirmation-dialog.directive';
+import ConfirmationDialogEvents from './confirmation-dialog-events';
+import { ConfirmationDialogStoreLike } from './confirmation-dialog.store';
+import { DIALOG_EVENTS } from '../dialog-events';
+import { DIALOG_STORE } from '../dialog.store';
 
-export default class FormDialog<TContext, TValue, TStore extends FormDialogStoreLike<TContext, TValue>, TEvents extends FormDialogEvents<TValue>> {
+export default class ConfirmationDialog<TContext, TStore extends ConfirmationDialogStoreLike<TContext>, TEvents extends ConfirmationDialogEvents> {
   private readonly dialog = inject(MatDialog);
   private readonly envInjector = inject(EnvironmentInjector);
   private readonly destroyRef = inject(DestroyRef);
@@ -18,8 +18,8 @@ export default class FormDialog<TContext, TValue, TStore extends FormDialogStore
   public readonly events: TEvents;
   public readonly context: Signal<TContext>;
 
-  constructor(private readonly dialogStore: TStore, component: ComponentType<FormDialogDirective<TContext, TValue, TStore, TEvents>>, dialogEventsType?: Type<TEvents>) {
-    this.events = dialogEventsType == null ? new FormDialogEvents<TValue>() as TEvents : new dialogEventsType();
+  constructor(private readonly dialogStore: TStore, component: ComponentType<ConfirmationDialogDirective<TContext, TStore, TEvents>>, dialogEventsType?: Type<TEvents>) {
+    this.events = dialogEventsType == null ? new ConfirmationDialogEvents() as TEvents : new dialogEventsType();
     this.context = dialogStore.context;
 
     const effectRef = effect(() => {
@@ -61,8 +61,8 @@ export default class FormDialog<TContext, TValue, TStore extends FormDialogStore
     });
   }
 
-  public open(context: TContext, value?: TValue): void {
-    this.dialogStore.open(context, value);
+  public open(context: TContext): void {
+    this.dialogStore.open(context);
   }
 
   public close(): void {
@@ -71,15 +71,13 @@ export default class FormDialog<TContext, TValue, TStore extends FormDialogStore
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type FormContextOf<T> = T extends FormDialogDirective<infer TContext, any, any, any> ? TContext : never;
+export type ConfirmationContextOf<T> = T extends ConfirmationDialogDirective<infer TContext, any, any> ? TContext : never;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ValueOf<T> = T extends FormDialogDirective<any, infer TValue, any, any> ? TValue : never;
+export type ConfirmationStoreOf<T> = T extends ConfirmationDialogDirective<any, infer TStore extends ConfirmationDialogStoreLike<ConfirmationContextOf<T>>, any> ? TStore : never;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type FormStoreOf<T> = T extends FormDialogDirective<any, any, infer TStore extends FormDialogStoreLike<FormContextOf<T>, ValueOf<T>>, any> ? TStore : never;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type FormEventsOf<T> = T extends FormDialogDirective<any, any, any, infer TEvents> ? TEvents : never;
+export type ConfirmationEventsOf<T> = T extends ConfirmationDialogDirective<any, any, infer TEvents> ? TEvents : never;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type FormDialogFor<TComponent> = TComponent extends FormDialogDirective<any, any, any, any>
-  ? FormDialog<FormContextOf<TComponent>, ValueOf<TComponent>, FormStoreOf<TComponent>, FormEventsOf<TComponent>>
+export type ConfirmationDialogFor<TComponent> = TComponent extends ConfirmationDialogDirective<any, any, any>
+  ? ConfirmationDialog<ConfirmationContextOf<TComponent>, ConfirmationStoreOf<TComponent>, ConfirmationEventsOf<TComponent>>
   : never;

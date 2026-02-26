@@ -1,10 +1,8 @@
 ﻿import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
-import { SaveDialogActionsComponent } from '../../shared/dialogs/actions/save-dialog-actions/save-dialog-actions.component';
+import { MatFormField, MatLabel } from '@angular/material/input';
 import AccountingPeriod from '../../entities/accounting-period';
-import { MatOption, MatSelect } from '@angular/material/select';
+import { MatOption, MatSelect, MatSelectTrigger } from '@angular/material/select';
 import { HideSubscriptWrapperDirective } from '../../shared/directives/hide-subscript-wrapper.directive';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -23,14 +21,16 @@ import { MatButton, MatIconButton } from '@angular/material/button';
     MatIcon,
     MatIconButton,
     MatButton,
+    MatSelectTrigger,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
   selectedAccountingPeriod = input<AccountingPeriod | null>(null);
   accountingPeriods = input<AccountingPeriod[]>([]);
-  
+
   selectAccountingPeriodClick = output<string>();
   createAccountingPeriodClick = output();
   updateAccountingPeriodClick = output<AccountingPeriod>();
+  deleteAccountingPeriodClick = output<AccountingPeriod>();
 }
