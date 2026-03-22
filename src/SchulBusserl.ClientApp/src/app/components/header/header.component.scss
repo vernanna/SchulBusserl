@@ -1,0 +1,9 @@
+.header {
+  &__accounting-period-option {
+    margin-right: -12px;
+  }
+}
+
+:host ::ng-deep .header__period-panel .mat-mdc-option .mdc-list-item__primary-text {
+  width: 100%;
+}

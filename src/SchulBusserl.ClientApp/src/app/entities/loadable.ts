@@ -7,8 +7,8 @@ export interface Loadable<T> {
 }
 
 export class Loadables {
-  public static initial<T>(): Loadable<T> {
-    return { value: null!, isLoading: false, error: null };
+  public static initial<T>(initialValue: T): Loadable<T> {
+    return { value: initialValue, isLoading: false, error: null };
   }
 
   public static loading<T>(previousValue: T | null = null): Loadable<T> {

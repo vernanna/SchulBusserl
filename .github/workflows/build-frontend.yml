@@ -20,4 +20,5 @@ jobs:
         working-directory: ./src/SchulBusserl.ClientApp
         run: |
           npm install
+          npm run lint
           npm run build

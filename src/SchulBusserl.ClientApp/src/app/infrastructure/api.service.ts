@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_URL } from './api-base-url.token';
@@ -15,14 +15,20 @@ export class ApiService {
     });
   }
 
-  post<T, D>(url: string, data?: D): Observable<T> {
+  post<T>(url: string, data?: unknown): Observable<T> {
     return this.http.post<T>(`${this.api_url}${url}`, JSON.stringify(data), {
       headers: this.headers,
     });
   }
 
-  put<T, D>(url: string, data: D): Observable<T> {
+  put<T>(url: string, data: unknown): Observable<T> {
     return this.http.put<T>(`${this.api_url}${url}`, JSON.stringify(data), {
+      headers: this.headers,
+    });
+  }
+
+  patch<T>(url: string, data: unknown): Observable<T> {
+    return this.http.patch<T>(`${this.api_url}${url}`, JSON.stringify(data), {
       headers: this.headers,
     });
   }
