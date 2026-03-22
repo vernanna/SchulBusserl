@@ -1,11 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import AccountingPeriod from '../../features/accounting-periods/entities/accounting-period';
-import { ApiService } from '../api.service';
-import { AccountingPeriod as ApiAccountingPeriod } from '../../features/accounting-periods/entities/api-accounting-period';
-import NewAccountingPeriod from '../../features/accounting-periods/entities/new-accounting-period';
-import UpdatedAccountingPeriod from '../../features/accounting-periods/entities/updated-accounting-period';
-import { resourceWithUrlParameters } from '../../shared/utils/string-utils';
+import AccountingPeriod from 'app/features/accounting-periods/entities/accounting-period';
+import { ApiService } from 'app/infrastructure/api.service';
+import { AccountingPeriod as ApiAccountingPeriod } from 'app/features/accounting-periods/entities/api-accounting-period';
+import NewAccountingPeriod from 'app/features/accounting-periods/entities/new-accounting-period';
+import UpdatedAccountingPeriod from 'app/features/accounting-periods/entities/updated-accounting-period';
+import { resourceWithUrlParameters } from 'app/shared/utils/string-utils';
 
 @Injectable({ providedIn: 'root' })
 export class AccountingPeriodRepository {

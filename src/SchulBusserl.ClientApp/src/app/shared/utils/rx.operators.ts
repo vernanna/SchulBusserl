@@ -1,8 +1,8 @@
 import { catchError, EMPTY, exhaustMap, Observable, OperatorFunction, pipe, tap } from 'rxjs';
-import { ApplicationError } from '../entities/application-error';
+import { ApplicationError } from 'app/shared/entities/application-error';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import ConfirmationDialogSubmission from '../dialogs/confirmation/confirmation-dialog-submission';
-import FormDialogSubmission from '../dialogs/form-dialog-submission';
+import ConfirmationDialogSubmission from 'app/shared/dialogs/confirmation/confirmation-dialog-submission';
+import FormDialogSubmission from 'app/shared/dialogs/form-dialog-submission';
 
 export function catchApplicationError<T>(handler: (error: ApplicationError) => void): OperatorFunction<T, T> {
   return (source: Observable<T>) =>

@@ -108,6 +108,16 @@
                         multilineDetection: 'brackets',
                     },
                 ],
+
+                'no-restricted-imports': [
+                    'error',
+                    {
+                        patterns: [{
+                            group: ['./*', '../*'],
+                            message: 'Use absolute imports starting with "app/" instead of relative imports.',
+                        }],
+                    },
+                ],
             },
         },
         {

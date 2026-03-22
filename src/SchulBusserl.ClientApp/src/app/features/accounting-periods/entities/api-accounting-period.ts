@@ -1,4 +1,4 @@
-import DomainAccountingPeriod from './accounting-period';
+import DomainAccountingPeriod from 'app/features/accounting-periods/entities/accounting-period';
 
 export interface AccountingPeriod {
   id: string;

@@ -1,8 +1,8 @@
 import { computed, Directive, inject, Signal } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DialogDirective } from './dialog.directive';
-import FormDialogEvents from './form-dialog-events';
-import { FormDialogStoreLike } from './form-dialog.store';
+import { DialogDirective } from 'app/shared/dialogs/dialog.directive';
+import FormDialogEvents from 'app/shared/dialogs/form-dialog-events';
+import { FormDialogStoreLike } from 'app/shared/dialogs/form-dialog.store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map, startWith } from 'rxjs';
 

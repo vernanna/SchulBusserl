@@ -52,6 +52,10 @@ See `.github/workflows/build-windows.yml` — builds frontend, publishes backend
 - `main.js` spawns `SchulBusserl.exe` backend, opens BrowserWindow to `http://localhost:5000`
 - electron-builder produces NSIS Windows installer
 
+## Claude-Specific Rules
+
+- When running `ng build` to verify compilation, always use `--output-path dist-claude` to avoid overwriting the user's `dist/` folder.
+
 ## Key Conventions
 
 - Never use abbreviated or shortened variable/parameter names (e.g. `fb` instead of `formBuilder`). Always use full, descriptive names.

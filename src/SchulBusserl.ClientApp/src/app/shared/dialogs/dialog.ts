@@ -1,9 +1,9 @@
-import DialogBase from './dialog-base';
-import { DialogStoreLike } from './dialog.store';
+import DialogBase from 'app/shared/dialogs/dialog-base';
+import { DialogStoreLike } from 'app/shared/dialogs/dialog.store';
 import { Type } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
-import { DialogDirective } from './dialog.directive';
-import DialogEvents from './dialog-events';
+import { DialogDirective } from 'app/shared/dialogs/dialog.directive';
+import DialogEvents from 'app/shared/dialogs/dialog-events';
 
 export default class Dialog<TContext, TStore extends DialogStoreLike<TContext>, TEvents extends DialogEvents> extends DialogBase<TContext, TStore, TEvents> {
   constructor(

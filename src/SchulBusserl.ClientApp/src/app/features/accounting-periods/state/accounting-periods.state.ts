@@ -1,5 +1,5 @@
-import AccountingPeriod from '../entities/accounting-period';
-import { Loadable, Loadables } from '../../../shared/entities/loadable';
+import AccountingPeriod from 'app/features/accounting-periods/entities/accounting-period';
+import { Loadable, Loadables } from 'app/shared/entities/loadable';
 
 export interface AccountingPeriodsState {
   selectedAccountingPeriodId: string | null;

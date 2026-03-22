@@ -1,9 +1,9 @@
 import { EmptyFeatureResult, patchState, SignalStoreFeature, signalStoreFeature, withMethods, withState } from '@ngrx/signals';
 import { Signal } from '@angular/core';
-import { DialogStoreFeatureResult, DialogStoreLike } from './dialog.store';
-import { FormDialogState, initialFormDialogState } from './form-dialog.state';
-import { ApplicationError } from '../entities/application-error';
-import { DialogState } from './dialog.state';
+import { DialogStoreFeatureResult, DialogStoreLike } from 'app/shared/dialogs/dialog.store';
+import { FormDialogState, initialFormDialogState } from 'app/shared/dialogs/form-dialog.state';
+import { ApplicationError } from 'app/shared/entities/application-error';
+import { DialogState } from 'app/shared/dialogs/dialog.state';
 
 export type FormDialogStoreFeatureResult<TContext, TValue> = Omit<DialogStoreFeatureResult<TContext>, 'state' | 'methods'> & {
   state: FormDialogState<TContext, TValue>;

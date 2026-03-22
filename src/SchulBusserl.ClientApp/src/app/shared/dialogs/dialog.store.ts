@@ -1,5 +1,5 @@
 import { EmptyFeatureResult, patchState, SignalStoreFeature, signalStoreFeature, withMethods, withState } from '@ngrx/signals';
-import { DialogState, initialDialogState } from './dialog.state';
+import { DialogState, initialDialogState } from 'app/shared/dialogs/dialog.state';
 import { InjectionToken, Signal } from '@angular/core';
 
 export type DialogStoreFeatureResult<TContext> = {

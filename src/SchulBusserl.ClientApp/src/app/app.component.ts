@@ -1,17 +1,17 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AccountingPeriodsStore } from './features/accounting-periods/state/accounting-periods.store';
-import { ContainerDirective } from './shared/containers/container.directive';
-import { CreateAccountingPeriodDialogComponent } from './features/accounting-periods/components/create-accounting-period-dialog/create-accounting-period.dialog';
-import { CreateAccountingPeriodDialogStore } from './features/accounting-periods/components/create-accounting-period-dialog/create-accounting-period-dialog.store';
-import { FormDialogFor } from './shared/dialogs/form-dialog';
-import { UpdateAccountingPeriodDialogComponent } from './features/accounting-periods/components/update-accounting-period-dialog/update-accounting-period.dialog';
-import { UpdateAccountingPeriodDialogStore } from './features/accounting-periods/components/update-accounting-period-dialog/update-accounting-period-dialog.store';
-import AccountingPeriod from './features/accounting-periods/entities/accounting-period';
-import { HeaderComponent } from './components/header/header.component';
-import { DeleteAccountingPeriodDialogComponent } from './features/accounting-periods/components/delete-accounting-period-dialog/delete-accounting-period.dialog';
-import { ConfirmationDialogFor } from './shared/dialogs/confirmation/confirmation-dialog';
-import { DeleteAccountingPeriodDialogStore } from './features/accounting-periods/components/delete-accounting-period-dialog/delete-accounting-period-dialog.store';
+import { AccountingPeriodsStore } from 'app/features/accounting-periods/state/accounting-periods.store';
+import { ContainerDirective } from 'app/shared/containers/container.directive';
+import { CreateAccountingPeriodDialogComponent } from 'app/features/accounting-periods/components/create-accounting-period-dialog/create-accounting-period.dialog';
+import { CreateAccountingPeriodDialogStore } from 'app/features/accounting-periods/components/create-accounting-period-dialog/create-accounting-period-dialog.store';
+import { FormDialogFor } from 'app/shared/dialogs/form-dialog';
+import { UpdateAccountingPeriodDialogComponent } from 'app/features/accounting-periods/components/update-accounting-period-dialog/update-accounting-period.dialog';
+import { UpdateAccountingPeriodDialogStore } from 'app/features/accounting-periods/components/update-accounting-period-dialog/update-accounting-period-dialog.store';
+import AccountingPeriod from 'app/features/accounting-periods/entities/accounting-period';
+import { HeaderComponent } from 'app/components/header/header.component';
+import { DeleteAccountingPeriodDialogComponent } from 'app/features/accounting-periods/components/delete-accounting-period-dialog/delete-accounting-period.dialog';
+import { ConfirmationDialogFor } from 'app/shared/dialogs/confirmation/confirmation-dialog';
+import { DeleteAccountingPeriodDialogStore } from 'app/features/accounting-periods/components/delete-accounting-period-dialog/delete-accounting-period-dialog.store';
 
 @Component({
   selector: 'app-root',

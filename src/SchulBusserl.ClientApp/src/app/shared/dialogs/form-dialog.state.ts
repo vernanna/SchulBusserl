@@ -1,5 +1,5 @@
-import { DialogState, initialDialogState } from './dialog.state';
-import { ApplicationError } from '../entities/application-error';
+import { DialogState, initialDialogState } from 'app/shared/dialogs/dialog.state';
+import { ApplicationError } from 'app/shared/entities/application-error';
 
 export interface FormDialogState<TContext, TValue> extends DialogState<TContext> {
   initialValue: Partial<TValue>;

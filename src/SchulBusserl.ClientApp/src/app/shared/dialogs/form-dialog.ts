@@ -1,9 +1,9 @@
-import DialogBase from './dialog-base';
+import DialogBase from 'app/shared/dialogs/dialog-base';
 import { Type } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
-import { FormDialogDirective } from './form-dialog.directive';
-import FormDialogEvents from './form-dialog-events';
-import { FormDialogStoreLike } from './form-dialog.store';
+import { FormDialogDirective } from 'app/shared/dialogs/form-dialog.directive';
+import FormDialogEvents from 'app/shared/dialogs/form-dialog-events';
+import { FormDialogStoreLike } from 'app/shared/dialogs/form-dialog.store';
 import { FormGroup } from '@angular/forms';
 
 export default class FormDialog<TContext, TValue, TStore extends FormDialogStoreLike<TContext, TValue>, TEvents extends FormDialogEvents<TValue>> extends DialogBase<TContext, TStore, TEvents> {

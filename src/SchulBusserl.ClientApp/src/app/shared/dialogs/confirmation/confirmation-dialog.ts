@@ -1,9 +1,9 @@
-import DialogBase from '../dialog-base';
+import DialogBase from 'app/shared/dialogs/dialog-base';
 import { Type } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
-import { ConfirmationDialogDirective } from './confirmation-dialog.directive';
-import ConfirmationDialogEvents from './confirmation-dialog-events';
-import { ConfirmationDialogStoreLike } from './confirmation-dialog.store';
+import { ConfirmationDialogDirective } from 'app/shared/dialogs/confirmation/confirmation-dialog.directive';
+import ConfirmationDialogEvents from 'app/shared/dialogs/confirmation/confirmation-dialog-events';
+import { ConfirmationDialogStoreLike } from 'app/shared/dialogs/confirmation/confirmation-dialog.store';
 
 export default class ConfirmationDialog<TContext, TStore extends ConfirmationDialogStoreLike<TContext>, TEvents extends ConfirmationDialogEvents> extends DialogBase<TContext, TStore, TEvents> {
   constructor(

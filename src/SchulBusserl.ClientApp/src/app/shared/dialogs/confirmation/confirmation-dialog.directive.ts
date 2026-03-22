@@ -1,7 +1,7 @@
 import { computed, Directive } from '@angular/core';
-import ConfirmationDialogEvents from './confirmation-dialog-events';
-import { ConfirmationDialogStoreLike } from './confirmation-dialog.store';
-import { DialogDirective } from '../dialog.directive';
+import ConfirmationDialogEvents from 'app/shared/dialogs/confirmation/confirmation-dialog-events';
+import { ConfirmationDialogStoreLike } from 'app/shared/dialogs/confirmation/confirmation-dialog.store';
+import { DialogDirective } from 'app/shared/dialogs/dialog.directive';
 
 @Directive()
 export abstract class ConfirmationDialogDirective<TContext, TStore extends ConfirmationDialogStoreLike<TContext>, TEvents extends ConfirmationDialogEvents = ConfirmationDialogEvents> extends DialogDirective<TContext, TStore, TEvents> {

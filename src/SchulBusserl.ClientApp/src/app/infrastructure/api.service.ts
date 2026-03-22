@@ -1,7 +1,7 @@
 import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_URL } from './api-base-url.token';
+import { API_URL } from 'app/infrastructure/api-base-url.token';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
