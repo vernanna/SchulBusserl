@@ -1,0 +1,49 @@
+<div class="vehicles-list p-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Fahrzeuge</h3>
+    <button mat-raised-button color="primary" (click)="onCreateVehicleClick()">
+      <mat-icon>add</mat-icon>
+      Fahrzeug hinzufügen
+    </button>
+  </div>
+
+  @if (isLoading()) {
+    <div class="d-flex justify-content-center p-4">
+      <mat-spinner diameter="40" />
+    </div>
+  } @else if (vehicles().length) {
+    <mat-table [dataSource]="vehicles()">
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let vehicle">{{ vehicle.name }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="licensePlate">
+        <mat-header-cell *matHeaderCellDef>Kennzeichen</mat-header-cell>
+        <mat-cell *matCellDef="let vehicle">{{ vehicle.licensePlate }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="numberOfPassengerSeats">
+        <mat-header-cell *matHeaderCellDef>Plätze</mat-header-cell>
+        <mat-cell *matCellDef="let vehicle">{{ vehicle.numberOfPassengerSeats }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef />
+        <mat-cell *matCellDef="let vehicle">
+          <button mat-icon-button (click)="onUpdateVehicleClick(vehicle)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="onDeleteVehicleClick(vehicle)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="columnsToDisplay" />
+      <mat-row *matRowDef="let row; columns: columnsToDisplay;" />
+    </mat-table>
+  } @else {
+    <p>Keine Fahrzeuge vorhanden - Zeit eines zu erstellen!</p>
+  }
+</div>

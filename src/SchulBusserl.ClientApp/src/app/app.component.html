@@ -1,6 +1,6 @@
 <app-header
-  [selectedAccountingPeriod]="accountingPeriodsStore.selectedAccountingPeriod()"
-  [accountingPeriods]="accountingPeriodsStore.accountingPeriods.value() ?? []"
+  [selectedAccountingPeriod]="selectedAccountingPeriod()"
+  [accountingPeriods]="accountingPeriods()"
   (selectAccountingPeriodClick)="onAccountingPeriodSelected($event)"
   (createAccountingPeriodClick)="onCreateAccountingPeriodClick()"
   (updateAccountingPeriodClick)="onUpdateAccountingPeriodClick($event)"

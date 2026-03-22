@@ -1,5 +1,5 @@
 import { computed, inject } from '@angular/core';
-import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
+import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, switchMap, tap } from 'rxjs';
 import { Loadables } from 'app/shared/entities/loadable';
@@ -68,4 +68,9 @@ export const AccountingPeriodsStore = signalStore(
       },
     }),
   ),
+  withHooks(store => ({
+    onInit() {
+      store.getAccountingPeriods();
+    },
+  })),
 );

@@ -87,4 +87,12 @@ body {
   height: 100%;
 }
 
+:root {
+  --app-surface-color: white;
+}
+
+@include mat.table-overrides((
+  background-color: var(--app-surface-color),
+));
+
 /* You can add global styles to this file, and also import other style files */
