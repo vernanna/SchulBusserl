@@ -353,6 +353,7 @@ MigrationBackup/
 test-results/
 artifacts/
 src/SchulBusserl.ClientApp/dist
+src/SchulBusserl.ClientApp/dist-claude
 src/SchulBusserl.ClientApp/node_modules
 src/SchulBusserl.ClientApp/.angular
 src/SchulBusserl.Electron/node_modules

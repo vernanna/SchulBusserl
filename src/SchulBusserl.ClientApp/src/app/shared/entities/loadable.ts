@@ -1,4 +1,4 @@
-import { ApplicationError } from './application-error';
+import { ApplicationError } from 'app/shared/entities/application-error';
 
 export interface Loadable<T> {
   value: T | null;

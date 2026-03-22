@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { MatDialogActions } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
-import { ApplicationError } from '../../../entities/application-error';
+import { ApplicationError } from 'app/shared/entities/application-error';
 import { MatError } from '@angular/material/input';
 import { NgClass } from '@angular/common';
 

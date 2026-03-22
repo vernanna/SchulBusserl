@@ -1,6 +1,6 @@
 ﻿import { Directive, inject } from '@angular/core';
-import { DIALOG_STORE, DialogStoreLike } from './dialog.store';
-import DialogEvents, { DIALOG_EVENTS } from './dialog-events';
+import { DIALOG_STORE, DialogStoreLike } from 'app/shared/dialogs/dialog.store';
+import DialogEvents, { DIALOG_EVENTS } from 'app/shared/dialogs/dialog-events';
 
 @Directive()
 export abstract class DialogDirective<TContext, TStore extends DialogStoreLike<TContext>, TEvents extends DialogEvents = DialogEvents> {

@@ -1,9 +1,9 @@
 import { EmptyFeatureResult, patchState, SignalStoreFeature, signalStoreFeature, withMethods, withState } from '@ngrx/signals';
 import { Signal } from '@angular/core';
-import { ConfirmationDialogState, initialConfirmationDialogState } from './confirmation-dialog.state';
-import { DialogStoreFeatureResult, DialogStoreLike } from '../dialog.store';
-import { ApplicationError } from '../../entities/application-error';
-import { DialogState } from '../dialog.state';
+import { ConfirmationDialogState, initialConfirmationDialogState } from 'app/shared/dialogs/confirmation/confirmation-dialog.state';
+import { DialogStoreFeatureResult, DialogStoreLike } from 'app/shared/dialogs/dialog.store';
+import { ApplicationError } from 'app/shared/entities/application-error';
+import { DialogState } from 'app/shared/dialogs/dialog.state';
 
 export type ConfirmationDialogStoreFeatureResult<TContext> = Omit<DialogStoreFeatureResult<TContext>, 'state' | 'methods'> & {
   state: ConfirmationDialogState<TContext>;

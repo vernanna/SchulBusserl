@@ -1,8 +1,8 @@
-import { DIALOG_STORE, DialogStoreLike } from './dialog.store';
+import { DIALOG_STORE, DialogStoreLike } from 'app/shared/dialogs/dialog.store';
 import { createEnvironmentInjector, DestroyRef, effect, EnvironmentInjector, inject, Signal, untracked } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
-import DialogEvents, { DIALOG_EVENTS } from './dialog-events';
+import DialogEvents, { DIALOG_EVENTS } from 'app/shared/dialogs/dialog-events';
 import { Subject, takeUntil } from 'rxjs';
 
 export default abstract class DialogBase<TContext, TStore extends DialogStoreLike<TContext>, TEvents extends DialogEvents> {

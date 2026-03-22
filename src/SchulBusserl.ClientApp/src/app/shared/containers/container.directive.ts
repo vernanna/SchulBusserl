@@ -1,19 +1,19 @@
 ﻿import { DestroyRef, Directive, inject, Type } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DialogStoreLike } from '../dialogs/dialog.store';
-import { DialogDirective } from '../dialogs/dialog.directive';
+import { DialogStoreLike } from 'app/shared/dialogs/dialog.store';
+import { DialogDirective } from 'app/shared/dialogs/dialog.directive';
 import { ComponentType } from '@angular/cdk/portal';
-import Dialog from '../dialogs/dialog';
-import DialogEvents from '../dialogs/dialog-events';
-import { FormDialogDirective } from '../dialogs/form-dialog.directive';
-import FormDialogEvents from '../dialogs/form-dialog-events';
-import FormDialog, { FormContextOf, FormEventsOf, FormStoreOf, ValueOf } from '../dialogs/form-dialog';
+import Dialog from 'app/shared/dialogs/dialog';
+import DialogEvents from 'app/shared/dialogs/dialog-events';
+import { FormDialogDirective } from 'app/shared/dialogs/form-dialog.directive';
+import FormDialogEvents from 'app/shared/dialogs/form-dialog-events';
+import FormDialog, { FormContextOf, FormEventsOf, FormStoreOf, ValueOf } from 'app/shared/dialogs/form-dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ConfirmationDialogDirective } from '../dialogs/confirmation/confirmation-dialog.directive';
-import ConfirmationDialog, { ConfirmationContextOf, ConfirmationEventsOf, ConfirmationStoreOf } from '../dialogs/confirmation/confirmation-dialog';
-import ConfirmationDialogEvents from '../dialogs/confirmation/confirmation-dialog-events';
-import FormDialogSubmission from '../dialogs/form-dialog-submission';
-import ConfirmationDialogSubmission from '../dialogs/confirmation/confirmation-dialog-submission';
+import { ConfirmationDialogDirective } from 'app/shared/dialogs/confirmation/confirmation-dialog.directive';
+import ConfirmationDialog, { ConfirmationContextOf, ConfirmationEventsOf, ConfirmationStoreOf } from 'app/shared/dialogs/confirmation/confirmation-dialog';
+import ConfirmationDialogEvents from 'app/shared/dialogs/confirmation/confirmation-dialog-events';
+import FormDialogSubmission from 'app/shared/dialogs/form-dialog-submission';
+import ConfirmationDialogSubmission from 'app/shared/dialogs/confirmation/confirmation-dialog-submission';
 
 @Directive()
 export abstract class ContainerDirective {

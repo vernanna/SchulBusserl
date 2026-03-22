@@ -2,16 +2,16 @@ import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, switchMap, tap } from 'rxjs';
-import { Loadables } from '../../../shared/entities/loadable';
-import { AccountingPeriodRepository } from '../../../infrastructure/repositories/accounting-period.repository';
-import { AccountingPeriodsState, initialAccountingPeriodsState } from './accounting-periods.state';
-import { catchApplicationError, processConfirmationDialogSubmission, processFormDialogSubmission } from '../../../shared/utils/rx.operators';
-import { CreateAccountingPeriodDialogContext, CreateAccountingPeriodDialogFormValue } from '../components/create-accounting-period-dialog/create-accounting-period-dialog.store';
-import NewAccountingPeriod from '../entities/new-accounting-period';
-import AccountingPeriod from '../entities/accounting-period';
-import UpdatedAccountingPeriod from '../entities/updated-accounting-period';
-import { UpdateAccountingPeriodDialogContext, UpdateAccountingPeriodDialogFormValue } from '../components/update-accounting-period-dialog/update-accounting-period-dialog.store';
-import { DeleteAccountingPeriodDialogContext } from '../components/delete-accounting-period-dialog/delete-accounting-period-dialog.store';
+import { Loadables } from 'app/shared/entities/loadable';
+import { AccountingPeriodRepository } from 'app/infrastructure/repositories/accounting-period.repository';
+import { AccountingPeriodsState, initialAccountingPeriodsState } from 'app/features/accounting-periods/state/accounting-periods.state';
+import { catchApplicationError, processConfirmationDialogSubmission, processFormDialogSubmission } from 'app/shared/utils/rx.operators';
+import { CreateAccountingPeriodDialogContext, CreateAccountingPeriodDialogFormValue } from 'app/features/accounting-periods/components/create-accounting-period-dialog/create-accounting-period-dialog.store';
+import NewAccountingPeriod from 'app/features/accounting-periods/entities/new-accounting-period';
+import AccountingPeriod from 'app/features/accounting-periods/entities/accounting-period';
+import UpdatedAccountingPeriod from 'app/features/accounting-periods/entities/updated-accounting-period';
+import { UpdateAccountingPeriodDialogContext, UpdateAccountingPeriodDialogFormValue } from 'app/features/accounting-periods/components/update-accounting-period-dialog/update-accounting-period-dialog.store';
+import { DeleteAccountingPeriodDialogContext } from 'app/features/accounting-periods/components/delete-accounting-period-dialog/delete-accounting-period-dialog.store';
 
 export const AccountingPeriodsStore = signalStore(
   { providedIn: 'root' },
