@@ -1,5 +1,5 @@
 import { catchError, EMPTY, exhaustMap, Observable, OperatorFunction, pipe, tap } from 'rxjs';
-import { ApplicationError } from '../../entities/application-error';
+import { ApplicationError } from '../entities/application-error';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import ConfirmationDialogSubmission from '../dialogs/confirmation/confirmation-dialog-submission';
 import FormDialogSubmission from '../dialogs/form-dialog-submission';

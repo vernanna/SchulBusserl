@@ -1,5 +1,5 @@
 ﻿import { signalStore } from '@ngrx/signals';
-import { withFormDialog } from '../../shared/dialogs/form-dialog.store';
+import { withFormDialog } from '../../../../shared/dialogs/form-dialog.store';
 
 export interface CreateAccountingPeriodDialogContext {
 }

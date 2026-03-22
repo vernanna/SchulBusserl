@@ -1,5 +1,5 @@
 import { DialogState, initialDialogState } from '../dialog.state';
-import { ApplicationError } from '../../../entities/application-error';
+import { ApplicationError } from '../../entities/application-error';
 
 export interface ConfirmationDialogState<TContext> extends DialogState<TContext> {
   isSubmitting: boolean;

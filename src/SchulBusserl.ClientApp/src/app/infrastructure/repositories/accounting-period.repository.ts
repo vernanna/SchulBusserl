@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import AccountingPeriod from '../../entities/accounting-period';
+import AccountingPeriod from '../../features/accounting-periods/entities/accounting-period';
 import { ApiService } from '../api.service';
-import { AccountingPeriod as ApiAccountingPeriod } from './entities/accounting-period';
-import NewAccountingPeriod from '../../entities/new-accounting-period';
-import UpdatedAccountingPeriod from '../../entities/updated-accounting-period';
+import { AccountingPeriod as ApiAccountingPeriod } from '../../features/accounting-periods/entities/api-accounting-period';
+import NewAccountingPeriod from '../../features/accounting-periods/entities/new-accounting-period';
+import UpdatedAccountingPeriod from '../../features/accounting-periods/entities/updated-accounting-period';
 import { resourceWithUrlParameters } from '../../shared/utils/string-utils';
 
 @Injectable({ providedIn: 'root' })
