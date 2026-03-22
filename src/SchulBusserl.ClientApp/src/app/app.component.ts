@@ -1,17 +1,17 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AppStore } from './state/app.store';
+import { AccountingPeriodsStore } from './features/accounting-periods/state/accounting-periods.store';
 import { ContainerDirective } from './shared/containers/container.directive';
-import { CreateAccountingPeriodDialogComponent } from './dialogs/create-accounting-period-dialog/create-accounting-period.dialog';
-import { CreateAccountingPeriodDialogStore } from './dialogs/create-accounting-period-dialog/create-accounting-period-dialog.store';
+import { CreateAccountingPeriodDialogComponent } from './features/accounting-periods/components/create-accounting-period-dialog/create-accounting-period.dialog';
+import { CreateAccountingPeriodDialogStore } from './features/accounting-periods/components/create-accounting-period-dialog/create-accounting-period-dialog.store';
 import { FormDialogFor } from './shared/dialogs/form-dialog';
-import { UpdateAccountingPeriodDialogComponent } from './dialogs/update-accounting-period-dialog/update-accounting-period.dialog';
-import { UpdateAccountingPeriodDialogStore } from './dialogs/update-accounting-period-dialog/update-accounting-period-dialog.store';
-import AccountingPeriod from './entities/accounting-period';
+import { UpdateAccountingPeriodDialogComponent } from './features/accounting-periods/components/update-accounting-period-dialog/update-accounting-period.dialog';
+import { UpdateAccountingPeriodDialogStore } from './features/accounting-periods/components/update-accounting-period-dialog/update-accounting-period-dialog.store';
+import AccountingPeriod from './features/accounting-periods/entities/accounting-period';
 import { HeaderComponent } from './components/header/header.component';
-import { DeleteAccountingPeriodDialogComponent } from './dialogs/delete-accounting-period-dialog/delete-accounting-period.dialog';
+import { DeleteAccountingPeriodDialogComponent } from './features/accounting-periods/components/delete-accounting-period-dialog/delete-accounting-period.dialog';
 import { ConfirmationDialogFor } from './shared/dialogs/confirmation/confirmation-dialog';
-import { DeleteAccountingPeriodDialogStore } from './dialogs/delete-accounting-period-dialog/delete-accounting-period-dialog.store';
+import { DeleteAccountingPeriodDialogStore } from './features/accounting-periods/components/delete-accounting-period-dialog/delete-accounting-period-dialog.store';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +21,7 @@ import { DeleteAccountingPeriodDialogStore } from './dialogs/delete-accounting-p
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App extends ContainerDirective implements OnInit {
-  protected readonly appStore = inject(AppStore);
+  protected readonly accountingPeriodsStore = inject(AccountingPeriodsStore);
   protected readonly createAccountingPeriodDialog: FormDialogFor<CreateAccountingPeriodDialogComponent>;
   protected readonly updateAccountingPeriodDialog: FormDialogFor<UpdateAccountingPeriodDialogComponent>;
   protected readonly deleteAccountingPeriodDialog: ConfirmationDialogFor<DeleteAccountingPeriodDialogComponent>;
@@ -31,23 +31,23 @@ export class App extends ContainerDirective implements OnInit {
     this.createAccountingPeriodDialog = this.registerFormDialog(
       CreateAccountingPeriodDialogComponent,
       CreateAccountingPeriodDialogStore,
-      submission => this.appStore.createAccountingPeriod(submission));
+      submission => this.accountingPeriodsStore.createAccountingPeriod(submission));
     this.updateAccountingPeriodDialog = this.registerFormDialog(
       UpdateAccountingPeriodDialogComponent,
       UpdateAccountingPeriodDialogStore,
-      submission => this.appStore.updateAccountingPeriod(submission));
+      submission => this.accountingPeriodsStore.updateAccountingPeriod(submission));
     this.deleteAccountingPeriodDialog = this.registerConfirmationDialog(
       DeleteAccountingPeriodDialogComponent,
       DeleteAccountingPeriodDialogStore,
-      submission => this.appStore.deleteAccountingPeriod(submission));
+      submission => this.accountingPeriodsStore.deleteAccountingPeriod(submission));
   }
 
   ngOnInit(): void {
-    this.appStore.getAccountingPeriods();
+    this.accountingPeriodsStore.getAccountingPeriods();
   }
 
   protected onAccountingPeriodSelected(id: string) {
-    this.appStore.selectAccountingPeriodRequested(id);
+    this.accountingPeriodsStore.selectAccountingPeriodRequested(id);
   }
 
   protected onCreateAccountingPeriodClick() {

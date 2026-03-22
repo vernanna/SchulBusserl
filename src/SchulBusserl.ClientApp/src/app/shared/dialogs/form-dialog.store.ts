@@ -2,7 +2,7 @@ import { EmptyFeatureResult, patchState, SignalStoreFeature, signalStoreFeature,
 import { Signal } from '@angular/core';
 import { DialogStoreFeatureResult, DialogStoreLike } from './dialog.store';
 import { FormDialogState, initialFormDialogState } from './form-dialog.state';
-import { ApplicationError } from '../../entities/application-error';
+import { ApplicationError } from '../entities/application-error';
 import { DialogState } from './dialog.state';
 
 export type FormDialogStoreFeatureResult<TContext, TValue> = Omit<DialogStoreFeatureResult<TContext>, 'state' | 'methods'> & {

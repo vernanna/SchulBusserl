@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { UpdateAccountingPeriodDialogContext, UpdateAccountingPeriodDialogStore, UpdateAccountingPeriodDialogFormValue } from './update-accounting-period-dialog.store';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormDialogDirective } from '../../shared/dialogs/form-dialog.directive';
+import { FormDialogDirective } from '../../../../shared/dialogs/form-dialog.directive';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
-import { SaveDialogActionsComponent } from '../../shared/dialogs/actions/save-dialog-actions/save-dialog-actions.component';
+import { SaveDialogActionsComponent } from '../../../../shared/dialogs/actions/save-dialog-actions/save-dialog-actions.component';
 
 @Component({
   selector: 'app-update-accounting-period-dialog',
