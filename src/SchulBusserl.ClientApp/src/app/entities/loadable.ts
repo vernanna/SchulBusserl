@@ -1,7 +1,7 @@
 import { ApplicationError } from './application-error';
 
 export interface Loadable<T> {
-  value: T;
+  value: T | null;
   isLoading: boolean;
   error: ApplicationError | null;
 }
@@ -12,7 +12,7 @@ export class Loadables {
   }
 
   public static loading<T>(previousValue: T | null = null): Loadable<T> {
-    return { value: previousValue!, isLoading: true, error: null };
+    return { value: previousValue, isLoading: true, error: null };
   }
 
   public static success<T>(value: T): Loadable<T> {
@@ -20,6 +20,6 @@ export class Loadables {
   }
 
   public static error<T>(error: ApplicationError): Loadable<T> {
-    return { value: null!, isLoading: false, error };
+    return { value: null, isLoading: false, error };
   }
 }

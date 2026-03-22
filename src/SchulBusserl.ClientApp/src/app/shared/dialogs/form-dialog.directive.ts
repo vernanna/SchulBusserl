@@ -1,22 +1,32 @@
-import { Directive, inject } from '@angular/core';
+import { computed, Directive, inject, Signal } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DialogDirective } from './dialog.directive';
 import FormDialogEvents from './form-dialog-events';
 import { FormDialogStoreLike } from './form-dialog.store';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map, startWith } from 'rxjs';
 
 @Directive()
-export abstract class FormDialogDirective<TContext, TValue, TStore extends FormDialogStoreLike<TContext, TValue>, TEvents extends FormDialogEvents<TValue> = FormDialogEvents<TValue>> extends DialogDirective<TContext, TStore, TEvents> {
+export abstract class FormDialogDirective<TContext, TValue, TStore extends FormDialogStoreLike<TContext, TValue>, TForm extends FormGroup = FormGroup, TEvents extends FormDialogEvents<TValue> = FormDialogEvents<TValue>> extends DialogDirective<TContext, TStore, TEvents> {
   protected readonly formBuilder = inject(FormBuilder);
-  protected abstract readonly form: FormGroup;
+  protected readonly form: TForm;
   protected readonly initialValue = this.dialogStore.initialValue;
   protected readonly isSubmitting = this.dialogStore.isSubmitting;
   protected readonly submissionError = this.dialogStore.error;
+  protected readonly canSubmit: Signal<boolean>;
 
-  protected get isValid(): boolean {
-    return this.form.valid;
-  }
+  protected abstract createForm(formBuilder: FormBuilder, initialValue: Partial<TValue>): TForm;
 
-  protected get canSubmit(): boolean {
-    return this.isValid && !this.isSubmitting();
+  constructor() {
+    super();
+    this.form = this.createForm(this.formBuilder, this.initialValue());
+    const formValid = toSignal(
+      this.form.statusChanges.pipe(
+        startWith(this.form.status),
+        map(() => this.form.valid),
+      ),
+      { initialValue: this.form.valid },
+    );
+    this.canSubmit = computed(() => formValid() && !this.isSubmitting());
   }
 }

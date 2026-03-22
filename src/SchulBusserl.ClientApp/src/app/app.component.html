@@ -1,6 +1,6 @@
 <app-header
   [selectedAccountingPeriod]="appStore.selectedAccountingPeriod()"
-  [accountingPeriods]="appStore.accountingPeriods.value()"
+  [accountingPeriods]="appStore.accountingPeriods.value() ?? []"
   (selectAccountingPeriodClick)="onAccountingPeriodSelected($event)"
   (createAccountingPeriodClick)="onCreateAccountingPeriodClick()"
   (updateAccountingPeriodClick)="onUpdateAccountingPeriodClick($event)"

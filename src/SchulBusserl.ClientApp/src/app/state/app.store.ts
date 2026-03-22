@@ -1,5 +1,5 @@
-import { inject } from '@angular/core';
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { computed, inject } from '@angular/core';
+import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, switchMap, tap } from 'rxjs';
 import { Loadables } from '../entities/loadable';
@@ -16,6 +16,9 @@ import { DeleteAccountingPeriodDialogContext } from '../dialogs/delete-accountin
 export const AppStore = signalStore(
   { providedIn: 'root' },
   withState<AppState>(initialAppState),
+  withComputed(store => ({
+    selectedAccountingPeriod: computed(() => store.accountingPeriods().value?.find(p => p.id === store.selectedAccountingPeriodId()) ?? null),
+  })),
   withMethods(
     (store, accountingPeriodRepository = inject(AccountingPeriodRepository)) => ({
       getAccountingPeriods: rxMethod<void>(
@@ -23,20 +26,46 @@ export const AppStore = signalStore(
           tap(() => patchState(store, { accountingPeriods: Loadables.loading() })),
           switchMap(() =>
             accountingPeriodRepository.getAccountingPeriods().pipe(
-              tap(accountingPeriods => patchState(store, { accountingPeriods: Loadables.success(accountingPeriods), selectedAccountingPeriod: accountingPeriods[0] ?? null })),
+              tap(accountingPeriods => patchState(
+                store,
+                {
+                  accountingPeriods: Loadables.success(accountingPeriods),
+                  selectedAccountingPeriodId: accountingPeriods[0]?.id ?? null,
+                },
+              )),
               catchApplicationError(error => patchState(store, { accountingPeriods: Loadables.error(error) })))))),
       createAccountingPeriod: processFormDialogSubmission<CreateAccountingPeriodDialogContext, CreateAccountingPeriodDialogFormValue, AccountingPeriod>(
         (_, value) => accountingPeriodRepository.create(new NewAccountingPeriod(value.name)),
-        accountingPeriod => patchState(store, { accountingPeriods: Loadables.success([...store.accountingPeriods().value, accountingPeriod]) })),
+        accountingPeriod => patchState(
+          store,
+          {
+            accountingPeriods: Loadables.success([...(store.accountingPeriods().value ?? []), accountingPeriod]),
+          },
+        )),
       updateAccountingPeriod: processFormDialogSubmission<UpdateAccountingPeriodDialogContext, UpdateAccountingPeriodDialogFormValue, AccountingPeriod>(
         (context, value) => accountingPeriodRepository.update(new UpdatedAccountingPeriod(context.id, value.name)),
-        accountingPeriod => patchState(store, { accountingPeriods: Loadables.success([...store.accountingPeriods().value.filter(period => period.id !== accountingPeriod.id), accountingPeriod]) })),
+        accountingPeriod => patchState(
+          store,
+          {
+            accountingPeriods: Loadables.success((store.accountingPeriods().value ?? []).map(period => period.id === accountingPeriod.id ? accountingPeriod : period)),
+          },
+        )),
       deleteAccountingPeriod: processConfirmationDialogSubmission<DeleteAccountingPeriodDialogContext>(
         context => accountingPeriodRepository.delete(context.accountingPeriod.id),
-        context => patchState(store, { accountingPeriods: Loadables.success(store.accountingPeriods().value.filter(period => period.id !== context.accountingPeriod.id)), selectedAccountingPeriod: store.accountingPeriods().value[0] ?? null })),
-      selectAccountingPeriodRequested: rxMethod<string>(
-        pipe(tap(accountingPeriodId => patchState(store, { selectedAccountingPeriod: store.accountingPeriods.value()?.find(period => period.id === accountingPeriodId) ?? null })))),
+        context => {
+          const remaining = (store.accountingPeriods().value ?? []).filter(
+            period => period.id !== context.accountingPeriod.id);
+          patchState(
+            store,
+            {
+              accountingPeriods: Loadables.success(remaining),
+              selectedAccountingPeriodId: remaining[0]?.id ?? null,
+            },
+          );
+        }),
+      selectAccountingPeriodRequested(accountingPeriodId: string): void {
+        patchState(store, { selectedAccountingPeriodId: accountingPeriodId });
+      },
     }),
   ),
-)
-;
+);
