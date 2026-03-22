@@ -1,4 +1,4 @@
-import { catchError, EMPTY, Observable, OperatorFunction, pipe, switchMap, tap } from 'rxjs';
+import { catchError, EMPTY, exhaustMap, Observable, OperatorFunction, pipe, tap } from 'rxjs';
 import { ApplicationError } from '../../entities/application-error';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import ConfirmationDialogSubmission from '../dialogs/confirmation/confirmation-dialog-submission';
@@ -18,7 +18,7 @@ export function processConfirmationDialogSubmission<TContext>(process: (context:
   return rxMethod<ConfirmationDialogSubmission<TContext>>(
     pipe(
       tap(submission => submission.store.submit()),
-      switchMap(submission => process(submission.context).pipe(
+      exhaustMap(submission => process(submission.context).pipe(
         tap(() => {
           if (processResult != null) {
             processResult(submission.context);
@@ -32,7 +32,7 @@ export function processFormDialogSubmission<TContext, TValue, TResult>(process: 
   return rxMethod<FormDialogSubmission<TContext, TValue>>(
     pipe(
       tap(submission => submission.store.submit()),
-      switchMap(submission => process(submission.context, submission.value).pipe(
+      exhaustMap(submission => process(submission.context, submission.value).pipe(
         tap(result => {
           if (processResult != null) {
             processResult(result);

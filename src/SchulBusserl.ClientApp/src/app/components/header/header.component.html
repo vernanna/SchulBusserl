@@ -23,10 +23,10 @@
                 <div class="header__accounting-period-option d-flex justify-content-between align-items-center">
                   {{ accountingPeriod.name }}
                   <div class="ps-4">
-                    <button matIconButton (click)="updateAccountingPeriodClick.emit(accountingPeriod)">
+                    <button matIconButton (click)="updateAccountingPeriodClick.emit(accountingPeriod); $event.stopPropagation()">
                       <mat-icon>edit</mat-icon>
                     </button>
-                    <button matIconButton (click)="deleteAccountingPeriodClick.emit(accountingPeriod)">
+                    <button matIconButton (click)="deleteAccountingPeriodClick.emit(accountingPeriod); $event.stopPropagation()">
                       <mat-icon>delete</mat-icon>
                     </button>
                   </div>

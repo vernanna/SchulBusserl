@@ -2,4 +2,4 @@
 <mat-dialog-content>
   Möchten Sie den Zeitraum {{ context().accountingPeriod.name }} wirklich löschen?
 </mat-dialog-content>
-<app-save-dialog-actions [canSave]="canSubmit" [error]="submissionError()" (saveClicked)="onSubmitRequested()" (cancelClicked)="oncloseRequested()" />
+<app-save-dialog-actions [canSave]="canSubmit()" [error]="submissionError()" (saveClicked)="onSubmitRequested()" (cancelClicked)="oncloseRequested()" />

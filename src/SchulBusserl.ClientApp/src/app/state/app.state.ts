@@ -2,11 +2,11 @@ import AccountingPeriod from '../entities/accounting-period';
 import { Loadable, Loadables } from '../entities/loadable';
 
 export interface AppState {
-  selectedAccountingPeriod: AccountingPeriod | null;
+  selectedAccountingPeriodId: string | null;
   accountingPeriods: Loadable<AccountingPeriod[]>;
 }
 
 export const initialAppState: AppState = {
-  selectedAccountingPeriod: null,
+  selectedAccountingPeriodId: null,
   accountingPeriods: Loadables.initial([]),
 };

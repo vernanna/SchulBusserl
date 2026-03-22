@@ -1,4 +1,5 @@
 ﻿import { DestroyRef, Directive, inject, Type } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { DialogStoreLike } from '../dialogs/dialog.store';
 import { DialogDirective } from '../dialogs/dialog.directive';
 import { ComponentType } from '@angular/cdk/portal';
@@ -42,7 +43,7 @@ export abstract class ContainerDirective {
     return dialog;
   }
 
-  protected registerFormDialog<TComponent extends FormDialogDirective<FormContextOf<TComponent>, ValueOf<TComponent>, FormStoreOf<TComponent>, FormEventsOf<TComponent>>>(
+  protected registerFormDialog<TComponent extends FormDialogDirective<FormContextOf<TComponent>, ValueOf<TComponent>, FormStoreOf<TComponent>, FormGroup, FormEventsOf<TComponent>>>(
     component: ComponentType<TComponent>,
     dialogStoreType: Type<FormStoreOf<TComponent>>,
     onSubmit: (data: FormDialogSubmission<FormContextOf<TComponent>, ValueOf<TComponent>>) => void,
@@ -57,7 +58,7 @@ export abstract class ContainerDirective {
     return dialog;
   }
 
-  protected registerFormDialogWithEvents<TComponent extends FormDialogDirective<FormContextOf<TComponent>, ValueOf<TComponent>, FormStoreOf<TComponent>, FormEventsOf<TComponent>>>(
+  protected registerFormDialogWithEvents<TComponent extends FormDialogDirective<FormContextOf<TComponent>, ValueOf<TComponent>, FormStoreOf<TComponent>, FormGroup, FormEventsOf<TComponent>>>(
     component: ComponentType<TComponent>,
     dialogStoreType: Type<FormStoreOf<TComponent>>,
     dialogEventsType: Type<FormEventsOf<TComponent>> = FormDialogEvents<ValueOf<TComponent>> as unknown as Type<FormEventsOf<TComponent>>,

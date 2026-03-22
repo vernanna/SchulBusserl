@@ -54,7 +54,12 @@ See `.github/workflows/build-windows.yml` — builds frontend, publishes backend
 
 ## Key Conventions
 
+- Never use abbreviated or shortened variable/parameter names (e.g. `fb` instead of `formBuilder`). Always use full, descriptive names.
 - Central package versioning via `Directory.Packages.props`
 - .editorconfig: 4-space indents, CRLF line endings, 120 char line length
 - Backend code style enforced in build; Release builds treat warnings as errors
 - Frontend linting: ESLint with Angular-ESLint rules + Stylelint for SCSS
+
+## Frontend Patterns
+
+- **Dialog system**: `DialogBase` (abstract) handles MatDialog lifecycle. `FormDialogDirective` uses an abstract `createForm(formBuilder, initialValue)` method — the base constructor calls it to create the form and set up `canSubmit` as a signal via `toSignal`. Subclasses pass their form type as generic parameter `TForm` (position 4) to get typed `form.controls` in templates. Place type aliases for form types below the component class definition, not between imports.

@@ -1,6 +1,5 @@
 ﻿import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
-import { ReactiveFormsModule } from '@angular/forms';
 import { SaveDialogActionsComponent } from '../../shared/dialogs/actions/save-dialog-actions/save-dialog-actions.component';
 import { DeleteAccountingPeriodDialogContext, DeleteAccountingPeriodDialogStore } from './delete-accounting-period-dialog.store';
 import { ConfirmationDialogDirective } from '../../shared/dialogs/confirmation/confirmation-dialog.directive';
@@ -11,7 +10,6 @@ import { ConfirmationDialogDirective } from '../../shared/dialogs/confirmation/c
   imports: [
     MatDialogTitle,
     MatDialogContent,
-    ReactiveFormsModule,
     SaveDialogActionsComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
