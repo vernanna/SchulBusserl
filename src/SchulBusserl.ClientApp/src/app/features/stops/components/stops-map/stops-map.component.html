@@ -1,0 +1,5 @@
+<app-map
+  [markers]="markers()"
+  [selectedMarkerId]="selectedStopId()"
+  (markerClicked)="stopClicked.emit($event)"
+/>

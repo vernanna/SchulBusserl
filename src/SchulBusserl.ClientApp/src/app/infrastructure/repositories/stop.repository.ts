@@ -13,9 +13,9 @@ export class StopRepository {
 
   getStops(accountingPeriodId: string | null): Observable<Stop[]> {
     return of([
-      { id: '1', name: 'Hauptplatz', longitude: 13.8558, latitude: 46.6103, address: { street: 'Hauptplatz', houseNumber: '1', postalCode: '9500', city: 'Villach' } },
-      { id: '2', name: 'Bahnhof', longitude: 13.8494, latitude: 46.6117, address: { street: 'Bahnhofstraße', houseNumber: '15', postalCode: '9500', city: 'Villach' } },
-      { id: '3', name: 'Schule Landskron', longitude: 13.8412, latitude: 46.6350, address: { street: 'Schulweg', houseNumber: '3', postalCode: '9523', city: 'Landskron' } },
+      { id: '1', name: 'Hauptplatz Leibnitz', longitude: 15.5340, latitude: 46.7812, address: { street: 'Hauptplatz', houseNumber: '1', postalCode: '8430', city: 'Leibnitz' } },
+      { id: '2', name: 'Bahnhof Deutschlandsberg', longitude: 15.2131, latitude: 46.8139, address: { street: 'Bahnhofstraße', houseNumber: '12', postalCode: '8530', city: 'Deutschlandsberg' } },
+      { id: '3', name: 'Schule Wagna', longitude: 15.5561, latitude: 46.7670, address: { street: 'Marktstraße', houseNumber: '8', postalCode: '8435', city: 'Wagna' } },
     ]);
 
     // todo vk: use real value as soon as backend is available

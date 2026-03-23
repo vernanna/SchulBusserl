@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ElementRef, inject, signal, viewChildren } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
+import { MatRow, MatTableModule } from '@angular/material/table';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { StopsStore } from 'app/features/stops/state/stops.store';
 import { ContainerDirective } from 'app/shared/containers/container.directive';
@@ -15,6 +15,7 @@ import { DeleteStopDialogStore } from 'app/features/stops/components/delete-stop
 import { ConfirmationDialogFor } from 'app/shared/dialogs/confirmation/confirmation-dialog';
 import Stop from 'app/features/stops/entities/stop';
 import { ascending } from 'app/shared/utils/array-utils';
+import { StopsMapComponent } from 'app/features/stops/components/stops-map/stops-map.component';
 
 @Component({
   selector: 'app-stops-list',
@@ -26,13 +27,16 @@ import { ascending } from 'app/shared/utils/array-utils';
     MatIconButton,
     MatTableModule,
     MatProgressSpinner,
+    StopsMapComponent,
   ],
   providers: [StopsStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StopsListComponent extends ContainerDirective {
   private readonly stopsStore = inject(StopsStore);
+  private readonly tableRows = viewChildren(MatRow, { read: ElementRef });
   protected readonly columnsToDisplay = ['name', 'address', 'actions'];
+  protected readonly selectedStopId = signal<string | null>(null);
   protected readonly stops = computed(() => [...(this.stopsStore.stops().value ?? [])].sort(ascending(stop => stop.name)));
   protected readonly isLoading = computed(() => this.stopsStore.stops().isLoading);
 
@@ -77,5 +81,26 @@ export class StopsListComponent extends ContainerDirective {
 
   protected onDeleteStopClick(stop: Stop) {
     this.deleteStopDialog.open({ stop });
+  }
+
+  protected onStopRowClick(stop: Stop): void {
+    this.selectedStopId.set(
+      this.selectedStopId() === stop.id ? null : stop.id,
+    );
+  }
+
+  protected onMapStopSelected(stopId: string | null): void {
+    this.selectedStopId.set(stopId);
+    if (stopId) {
+      this.scrollToStop(stopId);
+    }
+  }
+
+  private scrollToStop(stopId: string): void {
+    const stopIndex = this.stops().findIndex(stop => stop.id === stopId);
+    const rows = this.tableRows();
+    if (stopIndex >= 0 && stopIndex < rows.length) {
+      (rows[stopIndex].nativeElement as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   }
 }

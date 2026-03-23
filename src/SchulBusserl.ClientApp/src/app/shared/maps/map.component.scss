@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.map-unavailable {
+  background-color: #f5f5f5;
+  color: #666666;
+  font-size: 1.1rem;
+}
+
+:host ::ng-deep .map-marker {
+  background: none;
+  border: none;
+  overflow: visible;
+}

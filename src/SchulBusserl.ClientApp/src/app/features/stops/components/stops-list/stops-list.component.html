@@ -9,35 +9,48 @@
 
   @if (isLoading()) {
     <div class="d-flex justify-content-center p-4">
-      <mat-spinner diameter="40" />
+      <mat-spinner diameter="40"/>
     </div>
-  } @else if (stops().length) {
-    <mat-table [dataSource]="stops()">
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-        <mat-cell *matCellDef="let stop">{{ stop.name }}</mat-cell>
-      </ng-container>
+  } @else if (stops().length > 0) {
+    <div class="stops-list__content row">
+      <mat-table class="col-12 col-lg-6" [dataSource]="stops()">
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+          <mat-cell *matCellDef="let stop">{{ stop.name }}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="address">
-        <mat-header-cell *matHeaderCellDef>Adresse</mat-header-cell>
-        <mat-cell *matCellDef="let stop">{{ stop.address.street }} {{ stop.address.houseNumber }}, {{ stop.address.postalCode }} {{ stop.address.city }}</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="address">
+          <mat-header-cell *matHeaderCellDef>Adresse</mat-header-cell>
+          <mat-cell *matCellDef="let stop">{{ stop.address.street }} {{ stop.address.houseNumber }}, {{ stop.address.postalCode }} {{ stop.address.city }}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef />
-        <mat-cell *matCellDef="let stop">
-          <button mat-icon-button (click)="onUpdateStopClick(stop)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button (click)="onDeleteStopClick(stop)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef/>
+          <mat-cell *matCellDef="let stop">
+            <button mat-icon-button (click)="onUpdateStopClick(stop); $event.stopPropagation()">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="onDeleteStopClick(stop); $event.stopPropagation()">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
 
-      <mat-header-row *matHeaderRowDef="columnsToDisplay" />
-      <mat-row *matRowDef="let row; columns: columnsToDisplay;" />
-    </mat-table>
+        <mat-header-row *matHeaderRowDef="columnsToDisplay"/>
+        <mat-row
+          *matRowDef="let row; columns: columnsToDisplay;"
+          [class.stops-list__row--selected]="row.id === selectedStopId()"
+          (click)="onStopRowClick(row)"
+        />
+      </mat-table>
+
+      <app-stops-map
+        class="col-12 col-lg-6"
+        [stops]="stops()"
+        [selectedStopId]="selectedStopId()"
+        (stopClicked)="onMapStopSelected($event)"
+      />
+    </div>
   } @else {
     <p>Keine Haltestellen vorhanden - Zeit eine zu erstellen!</p>
   }
