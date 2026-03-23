@@ -1,2 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <ProjectReference Include="..\SchulBusserl.Domain\SchulBusserl.Domain.csproj" />
+    </ItemGroup>
 </Project>

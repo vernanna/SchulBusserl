@@ -1,4 +1,5 @@
-﻿using Destructurama;
+﻿using System;
+using Destructurama;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using SchulBusserl.Api.ActionFilters;
 using SchulBusserl.Api.ResourceFilters;
 using SchulBusserl.Extensions;
+using SchulBusserl.Infrastructure;
 using Serilog;
 using ExceptionHandlerMiddleware = SchulBusserl.Api.Middleware.ExceptionHandlerMiddleware;
 
@@ -65,7 +67,7 @@ public class Startup
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-        ConfigureDatabase();
+        ConfigureDatabase(services);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,8 +100,7 @@ public class Startup
 
         app.UseSpa(spa => spa.Options.SourcePath = "ClientApp");
 
-        using var scope = app.ApplicationServices.CreateScope();
-        MigrateDatabase();
+        MigrateDatabase(app.ApplicationServices);
     }
 
     protected virtual IConfigurationRoot BuildConfiguration() =>
@@ -110,13 +111,9 @@ public class Startup
             .AddEnvironmentVariables()
             .Build();
 
-    protected virtual void ConfigureDatabase()
-    {
-        // todo: add database configuration
-    }
+    protected virtual void ConfigureDatabase(IServiceCollection services) =>
+        services.AddInfrastructure(Configuration, HostEnvironment);
 
-    private static void MigrateDatabase()
-    {
-        // todo: migrate database
-    }
+    private static void MigrateDatabase(IServiceProvider serviceProvider) =>
+        serviceProvider.MigrateDatabase();
 }
