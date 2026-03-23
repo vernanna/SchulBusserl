@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Haltestelle ändern</h2>
+<mat-dialog-content class="update-stop-dialog">
+  <mat-form-field class="w-100">
+    <mat-label>Name</mat-label>
+    <input matInput [formControl]="form.controls.name">
+  </mat-form-field>
+  
+  <mat-form-field class="w-100">
+    <mat-label>Längengrad</mat-label>
+    <input matInput type="number" [formControl]="form.controls.longitude">
+  </mat-form-field>
+  
+  <mat-form-field class="w-100">
+    <mat-label>Breitengrad</mat-label>
+    <input matInput type="number" [formControl]="form.controls.latitude">
+  </mat-form-field>
+  
+  <div class="d-flex gap-2">
+    <mat-form-field class="flex-grow-1">
+      <mat-label>Straße</mat-label>
+      <input matInput [formControl]="form.controls.street">
+    </mat-form-field>
+    <mat-form-field class="update-stop-dialog__house-number">
+      <mat-label>Hausnummer</mat-label>
+      <input matInput [formControl]="form.controls.houseNumber">
+    </mat-form-field>
+  </div>
+  
+  <div class="d-flex gap-2">
+    <mat-form-field class="update-stop-dialog__postal-code">
+      <mat-label>PLZ</mat-label>
+      <input matInput [formControl]="form.controls.postalCode">
+    </mat-form-field>
+    <mat-form-field class="flex-grow-1">
+      <mat-label>Ort</mat-label>
+      <input matInput [formControl]="form.controls.city">
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<app-save-dialog-actions [canSave]="canSubmit()" [error]="submissionError()" (saveClicked)="onSubmitRequested()" (cancelClicked)="oncloseRequested()" />

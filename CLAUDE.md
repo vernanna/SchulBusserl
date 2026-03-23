@@ -68,3 +68,8 @@ See `.github/workflows/build-windows.yml` — builds frontend, publishes backend
 ## Frontend Patterns
 
 - **Dialog system**: `DialogBase` (abstract) handles MatDialog lifecycle. `FormDialogDirective` uses an abstract `createForm(formBuilder, initialValue)` method — the base constructor calls it to create the form and set up `canSubmit` as a signal via `toSignal`. Subclasses pass their form type as generic parameter `TForm` (position 4) to get typed `form.controls` in templates. Place type aliases for form types below the component class definition, not between imports.
+
+- **Entity modeling**: Domain entities and infrastructure (API) entities are kept strictly separate.
+  - **Domain entities** live in `features/<feature>/entities/` — one interface/class per file (e.g. `stop.ts`, `address.ts`, `new-stop.ts`, `updated-stop.ts`). Each entity gets its own file, even if closely related (e.g. `Address` is separate from `Stop`).
+  - **Infrastructure entities** live in `infrastructure/entities/` — these mirror API response shapes and use the same name as their domain counterpart (e.g. `Stop`, `Address`). Each file also exports a `toDomainModel` mapping function (e.g. `stopToDomainModel`, `addressToDomainModel`). Composite mappings should delegate to child mappers (e.g. `stopToDomainModel` calls `addressToDomainModel`).
+  - **Repositories** in `infrastructure/repositories/` import infrastructure entities with an `Api` alias to avoid name collisions with domain types (e.g. `import { Stop as ApiStop } from 'app/infrastructure/entities/stop'`). Mock data returns domain-typed objects directly.

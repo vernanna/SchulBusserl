@@ -1,0 +1,5 @@
+<h2 mat-dialog-title>Haltestelle löschen</h2>
+<mat-dialog-content>
+  Möchten Sie die Haltestelle {{ context().stop.name }} wirklich löschen?
+</mat-dialog-content>
+<app-save-dialog-actions [canSave]="canSubmit()" [error]="submissionError()" (saveClicked)="onSubmitRequested()" (cancelClicked)="oncloseRequested()" />
