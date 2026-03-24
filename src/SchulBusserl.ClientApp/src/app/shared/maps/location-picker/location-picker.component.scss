@@ -1,0 +1,12 @@
+.location-picker {
+    height: 250px;
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  
+  &__map-unavailable {
+    background-color: #f5f5f5;
+    color: #666666;
+    font-size: 1.1rem;
+  }
+}
