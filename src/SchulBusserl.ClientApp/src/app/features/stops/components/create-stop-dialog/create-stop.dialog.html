@@ -6,15 +6,10 @@
     <input matInput [formControl]="form.controls.name">
   </mat-form-field>
   
-  <mat-form-field class="w-100">
-    <mat-label>Längengrad</mat-label>
-    <input matInput type="number" [formControl]="form.controls.longitude">
-  </mat-form-field>
-  
-  <mat-form-field class="w-100">
-    <mat-label>Breitengrad</mat-label>
-    <input matInput type="number" [formControl]="form.controls.latitude">
-  </mat-form-field>
+  <app-location-picker
+    [latitude]="form.controls.latitude.value"
+    [longitude]="form.controls.longitude.value"
+    (locationChanged)="onLocationChanged($event)" />
   
   <div class="d-flex gap-2">
     <mat-form-field class="flex-grow-1">

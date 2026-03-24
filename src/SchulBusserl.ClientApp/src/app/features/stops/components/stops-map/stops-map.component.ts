@@ -6,7 +6,7 @@ import {
   output,
 } from '@angular/core';
 import Stop from 'app/features/stops/entities/stop';
-import { MapComponent } from 'app/shared/maps/map.component';
+import { MapComponent } from 'app/shared/maps/map/map.component';
 import { Marker } from 'app/shared/maps/marker';
 
 @Component({
