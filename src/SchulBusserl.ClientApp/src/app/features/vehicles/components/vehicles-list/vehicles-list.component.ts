@@ -14,6 +14,7 @@ import { DeleteVehicleDialogComponent } from 'app/features/vehicles/components/d
 import { DeleteVehicleDialogStore } from 'app/features/vehicles/components/delete-vehicle-dialog/delete-vehicle-dialog.store';
 import { ConfirmationDialogFor } from 'app/shared/dialogs/confirmation/confirmation-dialog';
 import Vehicle from 'app/features/vehicles/entities/vehicle';
+import { ascending } from 'app/shared/utils/array-utils';
 
 @Component({
   selector: 'app-vehicles-list',
@@ -32,7 +33,7 @@ import Vehicle from 'app/features/vehicles/entities/vehicle';
 export class VehiclesListComponent extends ContainerDirective {
   private readonly vehiclesStore = inject(VehiclesStore);
   protected readonly columnsToDisplay = ['name', 'licensePlate', 'numberOfPassengerSeats', 'actions'];
-  protected readonly vehicles = computed(() => this.vehiclesStore.vehicles().value ?? []);
+  protected readonly vehicles = computed(() => [...(this.vehiclesStore.vehicles().value ?? [])].sort(ascending(vehicle => vehicle.name)));
   protected readonly isLoading = computed(() => this.vehiclesStore.vehicles().isLoading);
 
   protected readonly createVehicleDialog: FormDialogFor<CreateVehicleDialogComponent>;
