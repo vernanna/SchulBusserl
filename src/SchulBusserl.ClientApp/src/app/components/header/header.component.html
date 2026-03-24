@@ -2,17 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <img src="assets/icon.ico" alt="SchulBusserl" width="30" height="30" class="mx-3">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Fahrzeuge</a>
-          </li>
-        </ul>
-
-        <mat-form-field appearance="outline" hideSubscriptWrapper>
+      <mat-form-field class="ms-auto order-lg-last" appearance="outline" hideSubscriptWrapper>
           <mat-label>Zeitraum</mat-label>
           <mat-select panelClass="header__period-panel" [value]="selectedAccountingPeriod()?.id" [hideSingleSelectionIndicator]="true" [panelWidth]="null" (selectionChange)="selectAccountingPeriodClick.emit($event.value)">
             <mat-select-trigger>
@@ -40,7 +30,16 @@
               </button>
             </div>
           </mat-select>
-        </mat-form-field>
+      </mat-form-field>
+      <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/vehicles">Fahrzeuge</a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>

@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Fahrzeug ändern</h2>
+<mat-dialog-content>
+  <mat-form-field class="w-100">
+    <mat-label>Name</mat-label>
+    <input matInput [formControl]="form.controls.name">
+  </mat-form-field>
+  <mat-form-field class="w-100">
+    <mat-label>Kennzeichen</mat-label>
+    <input matInput [formControl]="form.controls.licensePlate">
+  </mat-form-field>
+  <mat-form-field class="w-100">
+    <mat-label>Plätze</mat-label>
+    <input matInput type="number" [min]="1" [formControl]="form.controls.numberOfPassengerSeats">
+  </mat-form-field>
+</mat-dialog-content>
+<app-save-dialog-actions [canSave]="canSubmit()" [error]="submissionError()" (saveClicked)="onSubmitRequested()" (cancelClicked)="oncloseRequested()" />

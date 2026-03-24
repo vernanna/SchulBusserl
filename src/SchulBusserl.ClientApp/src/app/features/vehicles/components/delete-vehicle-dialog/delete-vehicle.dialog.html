@@ -1,0 +1,5 @@
+<h2 mat-dialog-title>Fahrzeug löschen</h2>
+<mat-dialog-content>
+  Möchten Sie das Fahrzeug {{ context().vehicle.name }} wirklich löschen?
+</mat-dialog-content>
+<app-save-dialog-actions [canSave]="canSubmit()" [error]="submissionError()" (saveClicked)="onSubmitRequested()" (cancelClicked)="oncloseRequested()" />

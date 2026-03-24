@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AccountingPeriodsStore } from 'app/features/accounting-periods/state/accounting-periods.store';
 import { ContainerDirective } from 'app/shared/containers/container.directive';
@@ -20,8 +20,10 @@ import { DeleteAccountingPeriodDialogStore } from 'app/features/accounting-perio
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class App extends ContainerDirective implements OnInit {
-  protected readonly accountingPeriodsStore = inject(AccountingPeriodsStore);
+export class App extends ContainerDirective {
+  private readonly accountingPeriodsStore = inject(AccountingPeriodsStore);
+  protected readonly selectedAccountingPeriod = computed(() => this.accountingPeriodsStore.selectedAccountingPeriod());
+  protected readonly accountingPeriods = computed(() => this.accountingPeriodsStore.accountingPeriods().value ?? []);
   protected readonly createAccountingPeriodDialog: FormDialogFor<CreateAccountingPeriodDialogComponent>;
   protected readonly updateAccountingPeriodDialog: FormDialogFor<UpdateAccountingPeriodDialogComponent>;
   protected readonly deleteAccountingPeriodDialog: ConfirmationDialogFor<DeleteAccountingPeriodDialogComponent>;
@@ -40,10 +42,6 @@ export class App extends ContainerDirective implements OnInit {
       DeleteAccountingPeriodDialogComponent,
       DeleteAccountingPeriodDialogStore,
       submission => this.accountingPeriodsStore.deleteAccountingPeriod(submission));
-  }
-
-  ngOnInit(): void {
-    this.accountingPeriodsStore.getAccountingPeriods();
   }
 
   protected onAccountingPeriodSelected(id: string) {

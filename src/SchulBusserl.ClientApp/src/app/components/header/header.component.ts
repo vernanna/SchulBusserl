@@ -1,5 +1,6 @@
 ﻿import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { MatFormField, MatLabel } from '@angular/material/input';
 import AccountingPeriod from 'app/features/accounting-periods/entities/accounting-period';
 import { MatOption, MatSelect, MatSelectTrigger } from '@angular/material/select';
@@ -22,6 +23,7 @@ import { MatButton, MatIconButton } from '@angular/material/button';
     MatIconButton,
     MatButton,
     MatSelectTrigger,
+    RouterLink,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

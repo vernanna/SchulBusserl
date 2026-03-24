@@ -1,6 +1,6 @@
 import { catchError, EMPTY, exhaustMap, Observable, OperatorFunction, pipe, tap } from 'rxjs';
 import { ApplicationError } from 'app/shared/entities/application-error';
-import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { rxMethod, RxMethod } from '@ngrx/signals/rxjs-interop';
 import ConfirmationDialogSubmission from 'app/shared/dialogs/confirmation/confirmation-dialog-submission';
 import FormDialogSubmission from 'app/shared/dialogs/form-dialog-submission';
 
@@ -14,7 +14,7 @@ export function catchApplicationError<T>(handler: (error: ApplicationError) => v
     );
 }
 
-export function processConfirmationDialogSubmission<TContext>(process: (context: TContext) => Observable<void>, processResult?: (context: TContext) => void) {
+export function processConfirmationDialogSubmission<TContext>(process: (context: TContext) => Observable<void>, processResult?: (context: TContext) => void): RxMethod<ConfirmationDialogSubmission<TContext>> {
   return rxMethod<ConfirmationDialogSubmission<TContext>>(
     pipe(
       tap(submission => submission.store.submit()),
@@ -28,7 +28,7 @@ export function processConfirmationDialogSubmission<TContext>(process: (context:
         catchApplicationError(error => submission.store.failed(error))))));
 }
 
-export function processFormDialogSubmission<TContext, TValue, TResult>(process: (context: TContext, value: TValue) => Observable<TResult>, processResult?: (result: TResult) => void) {
+export function processFormDialogSubmission<TContext, TValue, TResult>(process: (context: TContext, value: TValue) => Observable<TResult>, processResult?: (result: TResult) => void): RxMethod<FormDialogSubmission<TContext, TValue>> {
   return rxMethod<FormDialogSubmission<TContext, TValue>>(
     pipe(
       tap(submission => submission.store.submit()),

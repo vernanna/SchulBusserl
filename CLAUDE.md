@@ -55,6 +55,7 @@ See `.github/workflows/build-windows.yml` — builds frontend, publishes backend
 ## Claude-Specific Rules
 
 - When running `ng build` to verify compilation, always use `--output-path dist-claude` to avoid overwriting the user's `dist/` folder.
+- Store implementation plans and other temporary working files in `claude-temp/` at the project root (gitignored). Never check plans into the repository.
 
 ## Key Conventions
 

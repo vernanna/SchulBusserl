@@ -6,6 +6,9 @@ on:
 jobs:
   build-frontend:
     runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: ./src/SchulBusserl.ClientApp
 
     steps:
       - name: Checkout
@@ -16,9 +19,11 @@ jobs:
         with:
           node-version: 24
 
-      - name: Build frontend
-        working-directory: ./src/SchulBusserl.ClientApp
-        run: |
-          npm install
-          npm run lint
-          npm run build
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
